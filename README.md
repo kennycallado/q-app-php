@@ -1,5 +1,19 @@
 # q-app-php
 
+## PHP
+
+### Modules requered:
+
+If you run the proyect without the provided docker image you should install intl module for php. I am not including it as require in `composer.json` for convenience with other commands.
+
+**composer.json**
+``` json
+{
+...
+    "ext-intl": "*",
+...
+}
+```
 
 ## routes
 
