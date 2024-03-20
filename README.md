@@ -74,3 +74,9 @@ podman run --rm --interactive --tty \
 ``` bash
 podman run --rm -v .:/app php:8.2-cli-alpine /app/vendor/bin/phpunit /app/tests
 ```
+
+## Formatting
+
+``` bash
+podman run --rm -v .:/app php:8.2-cli-alpine /app/vendor/bin/pretty-php /app/src
+```
