@@ -26,6 +26,10 @@
       "action": "signin",
       "protected": false
     },
-    "/signup": {}
+    "/signup": {
+      "controller": "AuthController",
+      "action": "signup",
+      "protected": false
+    }
   }
 }
