@@ -72,5 +72,5 @@ podman run --rm --interactive --tty \
 ## Testing
 
 ``` bash
-podman run --rm -v .:/app php:8.2-cli /app/vendor/bin/phpunit /app/tests
+podman run --rm -v .:/app php:8.2-cli-alpine /app/vendor/bin/phpunit /app/tests
 ```

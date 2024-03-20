@@ -18,6 +18,7 @@ services:
   db-server:
     container_name: surrealdb
     image: kennycallado/q-api-store-demo:latest
+    pull_policy: "always"
     ports:
       - 8000:8000
     command:
@@ -32,6 +33,7 @@ services:
   auth-server:
     container_name: auth
     image: kennycallado/q-api-super:latest
+    pull_policy: "always"
     ports:
       - 9000:9000
     environment:
