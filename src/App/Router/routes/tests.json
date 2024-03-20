@@ -1,0 +1,14 @@
+{
+  "GET": {
+    "/:id/filters": {
+      "controller": "IndexController",
+      "action": "foo",
+      "protected": false
+    },
+    "/filters": {
+      "controller": "IndexController",
+      "action": "foo",
+      "protected": false
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "GET": {
+    "/": {
+      "controller": "MessagesController",
+      "action": "index",
+      "protected": true
+    }
+  }
+}

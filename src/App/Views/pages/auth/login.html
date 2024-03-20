@@ -1,0 +1,64 @@
+{% extends 'layouts/login.html' %}
+
+{% block modal_body %}
+  <h1>hola</h1>
+{% endblock %}
+
+{% block body %}
+<section class="d-flex justify-content-center align-items-center pt-5">
+  <div class="card my-2 p-4 pb-2 text-center shadow-lg">
+  <!-- <div class="card d-flex justify-content-center align-items-center" style="width: 40%;"> -->
+
+    <h1 class="border-start border-5 border-primary text-start ms-3 ps-1" >iPsitec</h1>
+    <div>
+      <h2 class="fs-5 fw-bold text-uppercase">sign in</h2>
+      <p class="mb-2">Enter your credentials to access your account</p>
+    </div>
+
+    <hr class="m-0 mb-2 border-2 border-primary">
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+      <span class="lead">Error:<span>
+      <br>
+      <small>{{ error }}</small>
+    </div>
+    {#
+    {% if error == "please enter your email or password" %}
+      <div sclass="alert alert-danger" role="alert"> {{ error }} </div>
+    {% elseif error == "email or password not found" %}
+      <div class="alert alert-danger" role="alert"> {{ error }} </div>
+    {% else %}
+      <div class="alert alert-danger" role="alert"> {{ error }} </div>
+    {% endif %}
+    #}
+    {% endif %}
+
+    <form method="POST" action="/signin">
+      <div class="mb-3 text-start">
+        <label for="username">Username:</label>
+        <!-- <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value=""> -->
+        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+      </div>
+
+      <div class="mb-3 text-start">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" autocomplete="on">
+      </div>
+
+      <div class="form-check text-start">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check">
+        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+      </div>
+
+      <button type="submit" class="btn btn-info w-100 text-light">Submit</button>
+    </form>
+
+    <div class="mt-4">
+      <button class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#signupModal">Create Account</button>
+      <p class="mb-0">Forgot your password? <a href="resetpass.php">Reset Password</a></p>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

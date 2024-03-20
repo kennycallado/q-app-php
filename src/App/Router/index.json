@@ -1,0 +1,31 @@
+{
+  "includes": {
+    "/admin": "routes/admin.json",
+    "/messages": "routes/messages.json"
+  },
+  "GET": {
+    "/": {
+      "controller": "IndexController",
+      "action": "index",
+      "protected": true
+    },
+    "/login": {
+      "controller": "AuthController",
+      "action": "login",
+      "protected": false
+    },
+    "/logout": {
+      "controller": "AuthController",
+      "action": "logout",
+      "protected": false
+    }
+  },
+  "POST": {
+    "/signin": {
+      "controller": "AuthController",
+      "action": "signin",
+      "protected": false
+    },
+    "/signup": {}
+  }
+}

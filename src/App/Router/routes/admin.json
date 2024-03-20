@@ -1,0 +1,9 @@
+{
+  "GET": {
+    "/": {
+      "controller": "AdminController",
+      "action": "dashboard",
+      "protected": true
+    }
+  }
+}
