@@ -6,15 +6,16 @@ use Src\Utils\Auth;
 
 class IndexController extends Render
 {
-  function index(Auth $auth, array $params) {
-    $prepare = [
-      "title" => "Home",
-      "auth" => $auth,
-      "params" => $params
-    ];
+    function index(Auth $auth, array $params)
+    {
+        $prepare = [
+            'title' => 'Home',
+            'auth' => $auth,
+            'params' => $params
+        ];
 
-    echo $this->view->render("pages/index/index.html", $prepare);
+        echo $this->view->render('pages/index/index.html', $prepare);
 
-    return ;
-  }
+        return;
+    }
 }

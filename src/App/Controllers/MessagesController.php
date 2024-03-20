@@ -6,14 +6,15 @@ use Src\Utils\Auth;
 
 class MessagesController extends Render
 {
-  function index(Auth $auth) {
-    $prepare = [
-      "title" => "Messages",
-      "auth" => $auth
-    ];
+    function index(Auth $auth)
+    {
+        $prepare = [
+            'title' => 'Messages',
+            'auth' => $auth
+        ];
 
-    echo $this->view->render("pages/messages/index.html", $prepare);
+        echo $this->view->render('pages/messages/index.html', $prepare);
 
-    return;
-  }
+        return;
+    }
 }

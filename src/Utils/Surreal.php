@@ -8,7 +8,8 @@ namespace Src\Utils;
  * @author  EDDYMENS
  * @license MIT (or other licence)
  */
-class Surreal {
+class Surreal
+{
     private $url;
     private $db;
     private $ns;
@@ -27,19 +28,19 @@ class Surreal {
      * @param  string $pass password
      * @return object
      */
-    public function __construct($ns, $db, $token, $user = NULL, $pass = NULL) {
-      $this->url = $_ENV['DATABASE_URL'];
-      $this->ns = $ns;
-      $this->db = $db;
+    public function __construct($ns, $db, $token, $user = NULL, $pass = NULL)
+    {
+        $this->url = $_ENV['DATABASE_URL'];
+        $this->ns = $ns;
+        $this->db = $db;
 
-      if ($token !== NULL) {
-        $this->token = 'Bearer ' . $token;
-      } else {
-        $this->user = $user;
-        $this->pass = $pass;
-        $this->token = 'Basic ' . base64_encode($this->user . ':' . $this->pass);
-      }
-
+        if ($token !== NULL) {
+            $this->token = 'Bearer ' . $token;
+        } else {
+            $this->user = $user;
+            $this->pass = $pass;
+            $this->token = 'Basic ' . base64_encode($this->user . ':' . $this->pass);
+        }
     }
 
     /**
@@ -72,8 +73,8 @@ class Surreal {
     public function tables($tables)
     {
         $tables = func_get_args();
-        $stringTables = implode(", ", $tables);
-        $this->query .= " " . $stringTables;
+        $stringTables = implode(', ', $tables);
+        $this->query .= ' ' . $stringTables;
         return $this;
     }
 
@@ -86,8 +87,8 @@ class Surreal {
     public function select($fields = ' * ')
     {
         $providedFields = func_get_args();
-        $stringFields = implode(", ", $providedFields);
-        $this->query .= " SELECT " . $stringFields . " FROM";
+        $stringFields = implode(', ', $providedFields);
+        $this->query .= ' SELECT ' . $stringFields . ' FROM';
         return $this;
     }
 
@@ -99,7 +100,7 @@ class Surreal {
      */
     public function where($statement)
     {
-        $this->query .= " WHERE " . $statement;
+        $this->query .= ' WHERE ' . $statement;
         return $this;
     }
 
@@ -111,7 +112,7 @@ class Surreal {
      */
     public function andWhere($statement)
     {
-        $this->query .= " AND " . $statement;
+        $this->query .= ' AND ' . $statement;
         return $this;
     }
 
@@ -123,7 +124,7 @@ class Surreal {
      */
     public function orWhere($statement)
     {
-        $this->query .= " OR " . $statement;
+        $this->query .= ' OR ' . $statement;
         return $this;
     }
 
@@ -135,7 +136,7 @@ class Surreal {
      */
     public function groupBy($field)
     {
-        $this->query .= " GROUP BY " . $field;
+        $this->query .= ' GROUP BY ' . $field;
         return $this;
     }
 
@@ -147,7 +148,7 @@ class Surreal {
      */
     public function split($field)
     {
-        $this->query .= " SPLIT " . $field;
+        $this->query .= ' SPLIT ' . $field;
         return $this;
     }
 
@@ -159,7 +160,7 @@ class Surreal {
      */
     public function orderBy($field)
     {
-        $this->query .= " ORDER BY " . $field;
+        $this->query .= ' ORDER BY ' . $field;
         return $this;
     }
 
@@ -171,7 +172,7 @@ class Surreal {
      */
     public function start($count)
     {
-        $this->query .= " START " . $count;
+        $this->query .= ' START ' . $count;
         return $this;
     }
 
@@ -183,7 +184,7 @@ class Surreal {
      */
     public function limit($count)
     {
-        $this->query .= " LIMIT " . $count;
+        $this->query .= ' LIMIT ' . $count;
         return $this;
     }
 
@@ -195,7 +196,7 @@ class Surreal {
      */
     public function timeout($time)
     {
-        $this->query .= " TIMEOUT " . $time . "s";
+        $this->query .= ' TIMEOUT ' . $time . 's';
         return $this;
     }
 
@@ -206,7 +207,7 @@ class Surreal {
      */
     public function parallel()
     {
-        $this->query .= " PARALLEL ";
+        $this->query .= ' PARALLEL ';
         return $this;
     }
 
@@ -218,7 +219,7 @@ class Surreal {
      */
     public function contains($word)
     {
-        $this->query .= " CONTAINS " . $word;
+        $this->query .= ' CONTAINS ' . $word;
         return $this;
     }
 
@@ -230,8 +231,7 @@ class Surreal {
      */
     public function delete($tables)
     {
-
-        $this->query .= " DELETE ";
+        $this->query .= ' DELETE ';
         $this->tables($tables);
         return $this;
     }
@@ -244,7 +244,7 @@ class Surreal {
      */
     public function return($type)
     {
-        $this->query .= " RETURN " . strtoupper($type);
+        $this->query .= ' RETURN ' . strtoupper($type);
         return $this;
     }
 
@@ -256,7 +256,7 @@ class Surreal {
      */
     public function create($table)
     {
-        $this->query .= " CREATE ";
+        $this->query .= ' CREATE ';
         $this->tables($table);
         return $this;
     }
@@ -269,7 +269,7 @@ class Surreal {
      */
     public function update($table)
     {
-        $this->query .= " UPDATE ";
+        $this->query .= ' UPDATE ';
         $this->tables($table);
         return $this;
     }
@@ -302,19 +302,20 @@ class Surreal {
      */
     public function relate($table)
     {
-        $this->query .= " RELATE ";
+        $this->query .= ' RELATE ';
         $this->tables($table);
         return $this;
     }
 
     /**
-      * write
-      * Specify second table to use in relationship 
-      * @param string $table second table to use in relationship
-      * @return $this */
+     * write
+     * Specify second table to use in relationship
+     * @param string $table second table to use in relationship
+     * @return $this
+     */
     public function write($table)
     {
-        $this->query .= " ->write-> ";
+        $this->query .= ' ->write-> ';
         $this->tables($table);
         return $this;
     }
@@ -350,9 +351,9 @@ class Surreal {
      */
     public function subQuery($funcQuery)
     {
-        $this->query .= " (";
+        $this->query .= ' (';
         $funcQuery();
-        $this->query .= " )";
+        $this->query .= ' )';
         return $this;
     }
 
@@ -363,7 +364,7 @@ class Surreal {
      */
     public function begin()
     {
-        $this->query .= " BEGIN TRANSACTION; ";
+        $this->query .= ' BEGIN TRANSACTION; ';
         return $this;
     }
 
@@ -374,7 +375,7 @@ class Surreal {
      */
     public function commit()
     {
-        $this->query .= " COMMIT TRANSACTION; ";
+        $this->query .= ' COMMIT TRANSACTION; ';
         return $this;
     }
 
@@ -385,38 +386,36 @@ class Surreal {
      */
     public function cancel()
     {
-        $this->query .= " CANCEL TRANSACTION; ";
+        $this->query .= ' CANCEL TRANSACTION; ';
         return $this;
     }
 
     private function requestProcessor($query)
     {
-      $curl = curl_init();
+        $curl = curl_init();
 
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => $query,
-        CURLOPT_HTTPHEADER => [ 
-          'Accept: application/json',
-          'Authorization: ' . $this->token,
-          'Content-Type: application/json',
-          'NS: ' . $this->ns,
-          'DB: ' . $this->db,
-        ],
-      ));
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $this->url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $query,
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json',
+                'Authorization: ' . $this->token,
+                'Content-Type: application/json',
+                'NS: ' . $this->ns,
+                'DB: ' . $this->db
+            ]
+        ));
 
-      $response = curl_exec($curl);
-      curl_close($curl);
+        $response = curl_exec($curl);
+        curl_close($curl);
 
-      return JSON_decode($response);
-      // if ($response == NULL) { return JSON_decode($response); }
-      // else { return JSON_decode($response)[0]->result; } // don't care about status or time
+        return JSON_decode($response);
     }
 }
