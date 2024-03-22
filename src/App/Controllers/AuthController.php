@@ -67,6 +67,10 @@ class AuthController extends Render
             return header('Location: /login');
         }
 
+        if (isset($auth->center)) {
+            setcookie('center', $auth->center, time() + (86400 * 30), '/');  // valid for 30 days
+        }
+
         if (isset($auth->project)) {
             setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
         }
@@ -88,6 +92,7 @@ class AuthController extends Render
         setcookie('role', '', -1, '/');
         setcookie('user_id', '', -1, '/');
         setcookie('project', '', -1, '/');
+        setcookie('center', '', -1, '/');
 
         session_unset();
 

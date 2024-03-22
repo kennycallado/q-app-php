@@ -13,9 +13,10 @@ class Auth
     public string $user_id;
     public string $role;
     public string $gAuth;
-    public string $iAuth;
-    public object $project;
-    public $error;
+    public ?string $iAuth;
+    public ?object $project;
+    public ?string $center;
+    public $error = null;
 
     /**
      * Constructor
@@ -24,7 +25,7 @@ class Auth
      *
      * @return object
      */
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->url = $url;
     }
@@ -94,6 +95,10 @@ class Auth
 
         if (isset($response->project)) {
             $this->project = $response->project;
+        }
+
+        if (isset($response->center)) {
+            $this->center = $response->center;
         }
 
         $this->user_id = $response->id;

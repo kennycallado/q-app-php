@@ -43,6 +43,11 @@ class Dispatcher
                 if (isset($_COOKIE['iAuth'])) {
                     $auth->iAuth = $_COOKIE['iAuth'];
                 }
+
+                if (isset($_COOKIE['center'])) {
+                    $auth->center = json_decode($_COOKIE['center']);
+                }
+
                 if (isset($_COOKIE['project'])) {
                     $auth->project = json_decode($_COOKIE['project']);
                 }
