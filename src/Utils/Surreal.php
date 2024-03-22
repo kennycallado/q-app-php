@@ -47,7 +47,7 @@ class Surreal
      * rawQuery
      * Run raw SQL
      * @param string $query query statement to run
-     * @return array
+     * @return array|object (if error occurs)
      */
     public function rawQuery($query)
     {
