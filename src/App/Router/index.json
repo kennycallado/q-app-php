@@ -30,6 +30,11 @@
       "controller": "AuthController",
       "action": "signup",
       "protected": false
+    },
+    "/join": {
+      "controller": "AuthController",
+      "action": "join",
+      "protected": true
     }
   }
 }

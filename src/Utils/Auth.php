@@ -112,28 +112,30 @@ class Auth
      * join
      * Join a user into a project
      *
-     * @param string $pass
-     * @param string $ns (default: 'interventions')
-     * @param string $db
+     * @param string $pass // example: '01HJTEBG4Y1EAXPATENCDCT7WW'
+     * @param ?string $ns
+     * @param ?string $db
      *
      * @return $this
      */
-    public function join($pass)
+    public function join($pass, $ns = null, $db = null)
     {
         $query = (object) [
-            'ns' => 'interventions',
-            'db' => $this->project->name,
+            'ns' => $ns ? $ns : $this->center,
+            'db' => $db ? $db : $this->project->name,
             'pass' => $pass
         ];
 
         // request and manage errors
-        $response = $this->requestProcessor('/join', json_encode($query), $query->ns, $query->db, $this->gAuth);
+        $response = $this->requestProcessor('/join', json_encode($query), $query->ns, $query->db, "Bearer $this->gAuth");
         if (isset($response->error)) {
             // throw new \Exception($response->error);
             $this->error = $response->error;
             return $this;
         }
+
         $this->iAuth = $response->token;
+
         return $this;
     }
 

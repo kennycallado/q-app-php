@@ -3,6 +3,7 @@ namespace Src\App\Controllers;
 
 use Src\Core\Render;
 use Src\Utils\Auth;
+use Src\Utils\Surreal;
 
 class AuthController extends Render
 {
@@ -81,6 +82,39 @@ class AuthController extends Render
 
         // return header("Location: /admin");
         return header('Location: /');
+    }
+
+    function join(Auth $auth, object $body) {
+        if (empty($body->project) || empty($body->pass)) {
+            $error = (object) ['code' => '400', 'description' => 'There are missing fields'];
+            $_SESSION['error'] = json_encode($error);
+
+            return header('Location: /admin');
+        }
+
+        $g_surreal = new Surreal('global', 'main', $auth->gAuth);
+        $sql  = "SELECT name, center.name FROM ONLY $body->project LIMIT 1;";
+
+        $result = $g_surreal->rawQuery($sql);
+        if (isset($result->code) && $result->code != 200) {
+            print_r($result);
+            echo "error";
+            return;
+        }
+
+        $center = $result[0]->result->center->name;
+        $project = $result[0]->result->name;
+
+        $auth = $auth->join($body->pass, $center, $project);
+        if (isset($auth->error)) {
+            $_SESSION['error'] = json_encode($auth->error);
+
+            return header('Location: /admin');
+        }
+
+        setcookie('iAuth', $auth->iAuth, time() + (86400 * 30), '/');  // valid for 30 days
+
+        return header('Location: /admin');
     }
 
     function logout()
