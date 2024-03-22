@@ -19,6 +19,17 @@ class UserRepository
      */
     public function all()
     {
-        return $this->surreal->select('*')->tables('users')->exec();
+        return $this->surreal->select('*')->tables('users')->exec()[0]->result;
+    }
+
+    /**
+     * Find user by id
+     *
+     * @param int $id
+     * @return array
+     */
+    public function findBy(string $column, string $value)
+    {
+        return $this->surreal->select('*')->tables('users')->where("$column = $value")->exec()[0]->result;
     }
 }
