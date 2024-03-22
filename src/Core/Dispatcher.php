@@ -106,8 +106,8 @@ class Dispatcher
 
         // Parse the URI and query string
         $parsedUrl = parse_url($uri);
-        $uri = $parsedUrl['path'];
-        $queryString = $parsedUrl['query'] ?? '';
+        $uri = urldecode($parsedUrl['path']);
+        $queryString = urldecode($parsedUrl['query'] ?? '');
 
         // Parse the query parameters
         $queryParams = $this->getQueryParams($queryString);
