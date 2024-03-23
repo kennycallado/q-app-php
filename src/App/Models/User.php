@@ -9,6 +9,8 @@ class User
     private $project;
     private ?string $password;
     private ?object $webtoken;  // notifications
+    private ?bool $active;
+    private ?array $scores;
 
     public function __construct(string $id, Role|string $role, string $username, Project|string $project = null, ?object $webtoken)
     {
