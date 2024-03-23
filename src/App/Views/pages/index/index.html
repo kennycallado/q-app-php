@@ -1,19 +1,8 @@
 {% extends 'layouts/main.html' %}
 
 {% block body %}
+
 <h1>hola mundo</h1>
 <p>{{ "now" | date() | format_datetime(locale='es-ES') }}</p>
 
-{% if params %}
-<h2>Params</h2>
-<pre>
-  {{ dump(params) }}
-</pre>
-{% endif %}
-
-<h2>Auth</h2>
-
-<pre>
-  {{ dump(auth) }}
-</pre>
 {% endblock %}
