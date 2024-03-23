@@ -1,0 +1,58 @@
+<div class="card">
+
+    <div class="card-body">
+        <h6 class="card-title mb-0 text-center">Project Authentication</h6>
+        <hr class="mt-1 border-2 border-primary">
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          <span class="lead">Error:<span>
+          <br>
+          <small>{{ error }}</small>
+        </div>
+
+        {#
+        {% if error == "please enter your email or password" %}
+          <div sclass="alert alert-danger" role="alert"> {{ error }} </div>
+        {% elseif error == "email or password not found" %}
+          <div class="alert alert-danger" role="alert"> {{ error }} </div>
+        {% else %}
+          <div class="alert alert-danger" role="alert"> {{ error }} </div>
+        {% endif %}
+        #}
+        {% endif %}
+
+        <form
+            id="change_form"
+            class="mb-2"
+            method="POST"
+            action="/join">
+            
+            <div class="mb-3 text-start">
+                <label for="project" class="form-label">Project:</label>
+                <select name="project" class="form-select" aria-label="Multiple select example">
+                    {% for project in projects %}
+                    <option value="{{ project.id }}" {% if current.project == project.name %} selected {% endif %}>{{ project.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3 text-start">
+                <label for="pass" class="form-label">Pass:</label>
+                <input name="pass" type="password" class="form-control" placeholder="Enter pass">
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="card-footer text-end">
+        <button
+            type="submit"
+            form="change_form"
+            class="btn btn-primary">
+            Join
+        </button>
+    </div>
+
+</div>

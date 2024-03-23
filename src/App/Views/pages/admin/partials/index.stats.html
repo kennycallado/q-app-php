@@ -1,0 +1,32 @@
+<div class="col">
+  <div class="card bg-primary-subtle">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-bricks"></i></h5>
+      <h6 class="card-subtitle text-primary text-end">Projects</h6>
+      <hr class="mt-1 border-2 border-primary">
+      <p class="card-text text-center lead">{{ projects_count }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card bg-primary-subtle">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-backpack"></i></h5>
+      <h6 class="card-subtitle text-primary text-end">Participants</h6>
+      <hr class="mt-1 border-2 border-primary">
+      <p class="card-text text-center lead">{{ users_count }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card bg-primary-subtle">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-wallet2"></i></h5>
+      <h6 class="card-subtitle text-primary text-end">Payments</h6>
+      <hr class="mt-1 border-2 border-primary">
+      <p class="card-text text-center lead">{{ payments_count | format_currency('EUR', locale='es-ES') }}</p>
+    </div>
+  </div>
+</div>

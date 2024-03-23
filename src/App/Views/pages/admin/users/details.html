@@ -1,0 +1,27 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<div class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2"><u>Participant</u></h1>
+</div>
+
+
+<section>
+     <div class="card">
+        <div class="card-body">
+        <p>id: {{ user.id }}</p>
+        <p>username: {{ user.username }}</p>
+        <p>active: {{ user.active ? 'true' : 'false' }}</p>
+        <p>web_token: {{ user.webtoken ? 'true' : 'false' }}</p>
+
+        {% for  record in user.scores %}
+        <p>{{ record.created|e }} - {{ record.score.step|e }} -> {{  record.score.state|e  }}</p>
+        {% endfor %}
+
+        </div>
+
+        <button class="btn btn-primary" onclick="history.back()">Back</button>
+    </div>
+</section>
+
+{% endblock %}

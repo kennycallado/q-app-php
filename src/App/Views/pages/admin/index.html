@@ -1,0 +1,44 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<div class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2"><u>Dashboard</u></h1>
+</div>
+
+<section>
+     <div class="card">
+        <div class="card-body">
+
+            <h2 class="card-title text-center text-capitalize">{{ current.center ? current.center : 'no center' }}</h2>
+
+            <h5 class="mb-0">Authentication:</h5>
+            <hr class="mt-1 border-2 border-primary">
+
+            <div class="row row-cols-1 row-cols-md-2 mx-2">
+                <div class="col">
+                    <p>
+                        Currently you are authenticated in center <span class="text-primary">{{ current.center }}</span> and assigned to project <span class="text-primary">{{ current.project ? current.project : "" }}</span>
+                        {% if joined %}, indeed you has been <span class="text-primary">join</span> the project. {% else %}. But you need to join the project in order to continue. {% endif %}
+                    </p>
+
+                    <p>Lorem ipsum dolor sit amet, reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate.</p>
+                </div>
+
+                <div class="col">
+                    {% include 'pages/admin/partials/index.join.html' %}
+                </div>
+            </div>
+
+            <h5 class="mb-0">Center Stats:</h5>
+            <hr class="mt-1 border-2 border-primary">
+
+            <main class="row row-cols-1 row-cols-md-3 g-2 mx-2">
+                {% include 'pages/admin/partials/index.stats.html' %}
+            </main>
+
+        </div>
+    </div>
+
+</section>
+</div>
+{% endblock %}
