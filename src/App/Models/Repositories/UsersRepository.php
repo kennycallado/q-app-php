@@ -3,7 +3,7 @@ namespace Src\App\Models\Repositories;
 
 use Src\Utils\Surreal;
 
-class UserRepository
+class UsersRepository
 {
     private Surreal $surreal;
 
@@ -20,6 +20,16 @@ class UserRepository
     public function all()
     {
         return $this->surreal->select('*')->tables('users')->exec()[0]->result;
+    }
+
+    /**
+     * Get all users
+     *
+     * @return array
+     */
+    public function where($statement)
+    {
+        return $this->surreal->select('*')->tables('users')->where($statement)->exec()[0]->result;
     }
 
     /**
