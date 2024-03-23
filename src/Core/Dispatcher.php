@@ -45,7 +45,7 @@ class Dispatcher
                 }
 
                 if (isset($_COOKIE['center'])) {
-                    $auth->center = json_decode($_COOKIE['center']);
+                    $auth->center = $_COOKIE['center'];
                 }
 
                 if (isset($_COOKIE['project'])) {
