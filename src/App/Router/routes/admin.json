@@ -4,6 +4,21 @@
       "controller": "AdminController",
       "action": "dashboard",
       "protected": true
+    },
+    "/parti": {
+      "controller": "Entities\\UsersController",
+      "action": "parti",
+      "protected": true
+    },
+    "/permissions": {
+      "controller": "Entities\\UsersController",
+      "action": "permissions",
+      "protected": true
+    },
+    "/users/:id": {
+      "controller": "Entities\\UsersController",
+      "action": "show",
+      "protected": true
     }
   }
 }

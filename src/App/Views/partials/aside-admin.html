@@ -27,6 +27,7 @@
             Projects
         </a>
 
+        {% if session.role in ['admin', 'coord'] %}
         <a
             href="/admin/permissions"
             type="button"
@@ -35,12 +36,13 @@
             <i class="bi bi-ban-fill"></i>
             Permissions
         </a>
+        {% endif %}
 
         <a
-            href="/admin/users"
+            href="/admin/parti"
             type="button"
-            class="list-group-item list-group-item-action {{ 'admin/users' in uri ? 'active' : '' }}"
-            aria-current="{{ 'admin/users' in uri ? 'true' : '' }}">
+            class="list-group-item list-group-item-action {{ 'admin/parti' in uri ? 'active' : '' }}"
+            aria-current="{{ 'admin/parti' in uri ? 'true' : '' }}">
             <i class="bi bi-backpack me-2"></i>
             Participants
         </a>
