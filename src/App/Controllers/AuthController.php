@@ -79,6 +79,7 @@ class AuthController extends Render
         setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('role', $auth->role, time() + (86400 * 30), '/');  // valid for 30 days
+        $_SESSION['role'] = $auth->role;
 
         // return header("Location: /admin");
         return header('Location: /');
