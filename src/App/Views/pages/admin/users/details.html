@@ -1,3 +1,4 @@
+{# ['title' => 'Details', 'p_keys' => $p_keys, 'user' => $user, 'error' => $error] #}
 {% extends 'layouts/main.html' %}
 
 {% block body %}
@@ -9,15 +10,66 @@
 <section>
      <div class="card">
         <div class="card-body">
-        <p>id: {{ user.id }}</p>
-        <p>username: {{ user.username }}</p>
-        <p>active: {{ user.active ? 'true' : 'false' }}</p>
-        <p>web_token: {{ user.webtoken ? 'true' : 'false' }}</p>
 
-        {% for  record in user.scores %}
-        <p>{{ record.created|e }} - {{ record.score.step|e }} -> {{  record.score.state|e  }}</p>
-        {% endfor %}
+            <p>id: {{ user.id }}</p>
+            <p>username: {{ user.username }}</p>
+            <p>active: {{ user.active ? 'true' : 'false' }}</p>
+            <p>web_token: {{ user.webtoken ? 'true' : 'false' }}</p>
 
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <section>
+                <h3 class="text-center text-primary"><u>Scores</u></h3>
+
+                <table class="w-75 mx-auto table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th class="ps-2" scope="col">id</th>
+                            <th scope="col">Step</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for record in user.scores %}
+                        <tr>
+                            <td
+                                class="ps-2 overflow-hidden text-truncate"
+                                style="max-width: 7rem;">
+                                {{ record.id }}
+                            </td>
+                            <td class="ps-2">{{ record.score.step }}</td>
+                            <td class="ps-2">{{ record.score.state }}</td>
+                            <td class="ps-2">{{ record.created | format_datetime(locale='es-ES') }}</td>
+                            <td class="ps-2"><a href="#"><i class="bi bi-pencil-square"></i></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center my-1">
+                                        <li class="page-item">
+                                            <a class="page-link py-1" href="#"><i class="bi bi-chevron-left"></i></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link py-1" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link py-1" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link py-1" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link py-1" href="#"><i class="bi bi-chevron-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </section>
         </div>
 
         <button class="btn btn-primary" onclick="history.back()">Back</button>

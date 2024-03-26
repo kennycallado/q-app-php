@@ -14,14 +14,23 @@
             <h5 class="mb-0">Authentication:</h5>
             <hr class="mt-1 border-2 border-primary">
 
+            {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+              <span class="lead">Error:<span>
+              <br>
+              <small class="ms-2">{{ error }}</small>
+            </div>
+            {% endif %}
+
             <div class="row row-cols-1 row-cols-md-2 mx-2">
                 <div class="col">
                     <p>
                         Currently you are authenticated in center <span class="text-primary">{{ current.center }}</span> and assigned to project <span class="text-primary">{{ current.project ? current.project : "" }}</span>
-                        {% if joined %}, indeed you has been <span class="text-primary">join</span> the project. {% else %}. But you need to join the project in order to continue. {% endif %}
+                        {% if joined %}, indeed you has success <span class="text-success fw-bolder">join</span> the project. {% else %}. But you need to join the project in order to continue. {% endif %}
                     </p>
-
-                    <p>Lorem ipsum dolor sit amet, reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate.</p>
+                    {#
+                    {% include 'pages/admin/partials/index.change.html' %}
+                    #}
                 </div>
 
                 <div class="col">
@@ -29,7 +38,7 @@
                 </div>
             </div>
 
-            <h5 class="mb-0">Center Stats:</h5>
+            <h5 class="mt-3">Center Stats:</h5>
             <hr class="mt-1 border-2 border-primary">
 
             <main class="row row-cols-1 row-cols-md-3 g-2 mx-2">
