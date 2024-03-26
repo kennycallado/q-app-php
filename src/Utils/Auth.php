@@ -15,7 +15,6 @@ class Auth
     public string $gAuth;
     public ?string $iAuth;
     public ?object $project;
-    public ?string $center;
     public $error = null;
 
     /**
@@ -38,8 +37,6 @@ class Auth
      * @param string $credentials->username
      * @param string $credentials->password
      * @param string $credentials->email
-     * @param string $ns (default: 'global')
-     * @param string $db (default: 'main')
      *
      * @return $this
      */
@@ -50,7 +47,6 @@ class Auth
             'password' => $credentials->password
         ];
 
-        // request and manage errors
         $response = $this->requestProcessor('/signup', json_encode($query), 'global', 'main');
         if (isset($response->error)) {
             // throw new \Exception($response->error);
@@ -58,10 +54,6 @@ class Auth
 
             return $this;
         }
-
-        // $this->user_id = $response->id;
-        // $this->role = $response->role;
-        // $this->gAuth = $response->token;
 
         return $this;
     }
@@ -97,10 +89,6 @@ class Auth
             $this->project = $response->project;
         }
 
-        if (isset($response->center)) {
-            $this->center = $response->center;
-        }
-
         $this->user_id = $response->id;
         $this->role = $response->role;
         $this->gAuth = $response->token;
@@ -121,7 +109,7 @@ class Auth
     public function join($pass, $ns = null, $db = null)
     {
         $query = (object) [
-            'ns' => $ns ? $ns : $this->center,
+            'ns' => $ns ? $ns : $this->project->center,
             'db' => $db ? $db : $this->project->name,
             'pass' => $pass
         ];
