@@ -14,7 +14,6 @@ class MessagesController extends Render
         ];
 
         echo $this->view->render('pages/messages/index.html', $prepare);
-
         return;
     }
 }

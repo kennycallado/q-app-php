@@ -13,7 +13,7 @@ class AuthController extends Render
         unset($_SESSION['error']);
 
         echo $this->view->render('pages/auth/login.html', ['title' => 'Login', 'error' => $error]);
-        return ;
+        return;
     }
 
     function signup(object $body)
@@ -87,7 +87,8 @@ class AuthController extends Render
         return header('Location: /');
     }
 
-    function join(Auth $auth, object $body) { // project_id, pass
+    function join(Auth $auth, object $body)
+    {  // project_id, pass
         if (empty($body->project) || empty($body->pass)) {
             $error = (object) ['code' => '400', 'datils' => 'There are missing fields'];
             $_SESSION['error'] = json_encode($error);
@@ -105,9 +106,9 @@ class AuthController extends Render
 
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
 
-        $sql = "
-            IF ". $body->project ." IN (SELECT VALUE out FROM join WHERE in IS ". $auth->user_id .") {
-                UPDATE ". $auth->user_id ." SET project = ". $body->project .";
+        $sql = '
+            IF ' . $body->project . ' IN (SELECT VALUE out FROM join WHERE in IS ' . $auth->user_id . ') {
+                UPDATE ' . $auth->user_id . ' SET project = ' . $body->project . ";
                 RETURN SELECT id, name, center.name FROM ONLY $body->project LIMIT 1;
             };";
 
