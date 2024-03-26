@@ -10,7 +10,16 @@ class UsersController extends Render
 {
     public function parti(Auth $auth)
     {
-        $i_surreal = new Surreal($auth->center, $auth->project->name, $auth->iAuth);
+        // check if user has been joined the project
+        if (!isset($auth->iAuth)) {
+            $error = (object) ['code' => '400', 'details' => 'You have not joined the project yet.'];
+
+            $_SESSION['error'] = json_encode($error);
+
+            return header('Location: /admin');
+        }
+
+        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->iAuth);
         $u_repo    = new UsersRepository('global', 'main', $auth->gAuth);
         $users     = [];
 
@@ -20,12 +29,12 @@ class UsersController extends Render
             echo "Error: ".$i_users->code;
             print_r($i_users);
 
-            return;
+            return ;
         } else {
             $i_users = $i_users[0]->result;
         }
 
-        $users = $u_repo->where("project = ".$auth->project->id." AND role == 'parti'");
+        $users = $u_repo->where("project = ". $auth->project->id ." AND role == 'parti'");
 
         // map $users to add active from i_users
         array_map(function($user) use ($i_users) {
@@ -38,8 +47,7 @@ class UsersController extends Render
         }, $users);
 
         echo $this->view->render('pages/admin/users/parti.html', ['title' => 'Users', 'users' => $users]);
-
-        return;
+        return ;
     }
 
     public function permissions(Auth $auth)
@@ -47,14 +55,13 @@ class UsersController extends Render
         if (!in_array($auth->role, ['admin', 'coord'])) {
             header('Location: /admin');
 
-            return;
+            return ;
         }
 
         $repo = new UsersRepository('global', 'main', $auth->gAuth);
         $users = $repo->where("project = ".$auth->project->id." AND role != 'parti'");
 
         echo $this->view->render('pages/admin/users/permissions.html', ['title' => 'Users', 'users' => $users]);
-
         return ;
     }
 
@@ -63,10 +70,19 @@ class UsersController extends Render
         $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
         unset($_SESSION['error']);
 
-        $i_surreal = new Surreal($auth->center, $auth->project->name, $auth->iAuth);
+        $g_surreal = new Surreal('global', 'amin', $auth->gAuth);
+        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->iAuth);
+
         $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
+
+        // get project keys
+        $res = $g_surreal->rawQuery("SELECT keys FROM ".$auth->project->id." ;");
+        $p_keys = $res[0]->result ?? [];
+
+        // get user
         $user = $u_repo->findBy('id', $params['id'])[0];
 
+        // get user active and scores
         $sql  = "SELECT VALUE active FROM ONLY $user->id LIMIT 1;";
         $sql .= "SELECT * FROM scores WHERE user = $user->id ORDER BY created DESC;";
 
@@ -75,7 +91,7 @@ class UsersController extends Render
             echo "Error: ".$res->code;
             print_r($res);
 
-            return;
+            return ;
         }
 
         $num_rows = count($res);
@@ -86,8 +102,7 @@ class UsersController extends Render
         $user->active = $active ?? false;
         $user->scores = $scores;
 
-        echo $this->view->render('pages/admin/users/details.html', ['title' => 'Details', 'user' => $user, 'error' => $error]);
-
-        return;
+        echo $this->view->render('pages/admin/users/details.html', ['title' => 'Details', 'p_keys' => $p_keys, 'user' => $user, 'error' => $error]);
+        return ;
     }
 }

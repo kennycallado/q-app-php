@@ -13,20 +13,21 @@ class AuthController extends Render
         unset($_SESSION['error']);
 
         echo $this->view->render('pages/auth/login.html', ['title' => 'Login', 'error' => $error]);
-        return;
+        return ;
     }
 
     function signup(object $body)
     {
         if (empty($body->username) || empty($body->password) || empty($body->conPassword)) {
-            if ($body->password !== $body->conPassword) {
-                $error = (object) ['code' => '400', 'description' => 'Password and confirm password must be the same'];
-                $_SESSION['error'] = json_encode($error);
+            $error = (object) ['code' => '400', 'details' => 'Username, password and email are required'];
+            $_SESSION['error'] = json_encode($error);
 
-                return header('Location: /login');
-            }
+            return header('Location: /login');
+        }
 
-            $error = (object) ['code' => '400', 'description' => 'Username, password and email are required'];
+        // check if password and confirm password are the same
+        if ($body->password !== $body->conPassword) {
+            $error = (object) ['code' => '400', 'datils' => 'Password and confirm password must be the same'];
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /login');
@@ -40,14 +41,13 @@ class AuthController extends Render
             return header('Location: /login');
         }
 
-        // $_SESSION['popup'] = json_encode((object) ["body" => "User created. Waiting for admin approval", "type" => "success"]);
         return header('Location: /login');
     }
 
     function signin(object $body)
     {
         if (empty($body->username) || empty($body->password)) {
-            $error = (object) ['code' => '400', 'description' => 'Username and password are required'];
+            $error = (object) ['code' => '400', 'datils' => 'Username and password are required'];
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /login');
@@ -61,18 +61,21 @@ class AuthController extends Render
             return header('Location: /login');
         }
 
-        if ($_ENV['ENVIRONMENT'] === 'production' && in_array($auth->role, ['parti', 'guest'])) {
-            $error = (object) ['code' => '400', 'description' => "You don't have permission to access this site"];
+        // check if user is a parti or guest
+        if (in_array($auth->role, ['parti', 'guest'])) {
+            $error = (object) ['code' => '400', 'datils' => "You don't have permission to access this site"];
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /login');
         }
 
-        if (isset($auth->center)) {
-            setcookie('center', $auth->center, time() + (86400 * 30), '/');  // valid for 30 days
-        }
+        // check if user is assigned to a project
+        if (!isset($auth->project)) {
+            $error = (object) ['code' => '400', 'details' => 'You are not assigned to any project'];
+            $_SESSION['error'] = json_encode($error);
 
-        if (isset($auth->project)) {
+            return header('Location: /login');
+        } else {
             setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
         }
 
@@ -81,36 +84,62 @@ class AuthController extends Render
         setcookie('role', $auth->role, time() + (86400 * 30), '/');  // valid for 30 days
         $_SESSION['role'] = $auth->role;
 
-        // return header("Location: /admin");
         return header('Location: /');
     }
 
-    function join(Auth $auth, object $body) {
+    function join(Auth $auth, object $body) { // project_id, pass
         if (empty($body->project) || empty($body->pass)) {
-            $error = (object) ['code' => '400', 'description' => 'There are missing fields'];
+            $error = (object) ['code' => '400', 'datils' => 'There are missing fields'];
+            $_SESSION['error'] = json_encode($error);
+
+            return header('Location: /admin');
+        }
+
+        // check if is trying to join as guest
+        if ($body->pass === 'guest') {
+            $error = (object) ['code' => '400', 'datils' => 'Is not possible to join as guest'];
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /admin');
         }
 
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
-        $sql  = "SELECT name, center.name FROM ONLY $body->project LIMIT 1;";
+
+        $sql = "
+            IF ". $body->project ." IN (SELECT VALUE out FROM join WHERE in IS ". $auth->user_id .") {
+                UPDATE ". $auth->user_id ." SET project = ". $body->project .";
+                RETURN SELECT id, name, center.name FROM ONLY $body->project LIMIT 1;
+            };";
 
         $result = $g_surreal->rawQuery($sql);
-        if (isset($result->code) && $result->code != 200) {
-            print_r($result);
-            echo "error";
-            return;
+        if (isset($result->code)) {
+            $_SESSION['error'] = json_encode($result);
+
+            return header('Location: /admin');
         }
 
-        $center = $result[0]->result->center->name;
-        $project = $result[0]->result->name;
+        $project = $result[0]->result;
+        if (empty($project)) {
+            $error = (object) ['code' => '400', 'details' => 'You are not allowed to join this project'];
+            $_SESSION['error'] = json_encode($error);
 
-        $auth = $auth->join($body->pass, $center, $project);
+            return header('Location: /admin');
+        }
+
+        $auth = $auth->join($body->pass, $project->center->name, $project->name);
         if (isset($auth->error)) {
             $_SESSION['error'] = json_encode($auth->error);
 
             return header('Location: /admin');
+        }
+
+        // update cookies
+        if ($auth->project->id !== $project->id) {
+            $auth->project->id = $project->id;
+            $auth->project->name = $project->name;
+            $auth->project->center = $project->center->name;
+
+            setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
         }
 
         setcookie('iAuth', $auth->iAuth, time() + (86400 * 30), '/');  // valid for 30 days
