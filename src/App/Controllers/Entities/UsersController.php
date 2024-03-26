@@ -13,7 +13,6 @@ class UsersController extends Render
         // check if user has been joined the project
         if (!isset($auth->iAuth)) {
             $error = (object) ['code' => '400', 'details' => 'You have not joined the project yet.'];
-
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /admin');
