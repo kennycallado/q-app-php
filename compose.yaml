@@ -32,7 +32,7 @@ services:
 
   auth-server:
     container_name: auth
-    image: kennycallado/q-api-super:latest
+    image: kennycallado/q-api-auth:latest
     pull_policy: "always"
     ports:
       - 9000:9000
