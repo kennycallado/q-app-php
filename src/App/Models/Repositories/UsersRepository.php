@@ -1,6 +1,7 @@
 <?php
 namespace Src\App\Models\Repositories;
 
+use Src\App\Models\User;
 use Src\Utils\Surreal;
 
 class UsersRepository
@@ -15,7 +16,7 @@ class UsersRepository
     /**
      * Get all users
      *
-     * @return array
+     * @return User[]
      */
     public function all()
     {
@@ -25,7 +26,7 @@ class UsersRepository
     /**
      * Get all users
      *
-     * @return array
+     * @return User[]
      */
     public function where($statement)
     {
@@ -36,7 +37,7 @@ class UsersRepository
      * Find user by id
      *
      * @param int $id
-     * @return array
+     * @return User[]
      */
     public function findBy(string $column, string $value)
     {

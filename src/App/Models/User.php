@@ -5,19 +5,17 @@ class User
 {
     private string $id;
     private Role $role;
+    private object $project;
     private string $username;
-    private $project;
     private ?string $password;
     private ?object $webtoken;  // notifications
-    private ?bool $active;
-    private ?array $scores;
 
-    public function __construct(string $id, Role|string $role, string $username, Project|string $project = null, ?object $webtoken)
+    public function __construct(string $id, Role|string $role, string $username, Project|string $project, ?object $webtoken)
     {
         $this->id = $id;
         $this->role = $role instanceof Role ? $role : Role::from($role);
+        $this->project = $project instanceof Project ? $project : (object) ['id' => $project];
         $this->username = $username;
-        $this->project = $project;
         $this->webtoken = $webtoken;
     }
 

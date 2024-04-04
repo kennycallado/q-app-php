@@ -2,6 +2,8 @@
 namespace Src\App\Controllers\Entities;
 
 use Src\App\Models\Repositories\UsersRepository;
+use Src\App\Models\IntervUser;
+use Src\App\Models\User;
 use Src\Core\Render;
 use Src\Utils\Auth;
 use Src\Utils\Surreal;
@@ -23,6 +25,7 @@ class UsersController extends Render
         $users = [];
 
         $sql = 'SELECT * FROM users;';
+        /** @var array | object $i_users */
         $i_users = $i_surreal->rawQuery($sql);
         if (isset($i_users->code)) {
             echo 'Error: ' . $i_users->code;
@@ -30,13 +33,15 @@ class UsersController extends Render
 
             return;
         } else {
+            /** @var IntervUser[] $i_users */
             $i_users = $i_users[0]->result;
         }
 
+        /** @var User[] */
         $users = $u_repo->where('project = ' . $auth->project->id . " AND role == 'parti'");
 
         // map $users to add active from i_users
-        array_map(function ($user) use ($i_users) {
+        array_map(function (mixed $user) use ($i_users) {
             foreach ($i_users as $i_user) {
                 if ($i_user->id == $user->id) {
                     $user->active = $i_user->active;
@@ -96,8 +101,9 @@ class UsersController extends Render
         $num_rows = count($res);
 
         $scores = $res[--$num_rows]->result;
-        $active = $res[--$num_rows]->result ?? [];
+        $active = $res[--$num_rows]->result;
 
+        /** @var IntervUser $user */
         $user->active = $active ?? false;
         $user->scores = $scores;
 
