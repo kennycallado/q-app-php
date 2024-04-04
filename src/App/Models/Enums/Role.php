@@ -9,9 +9,9 @@ enum Role
     case parti;
     case guest;
 
-    public static function from(string $role): Role
+    public static function from(string $value): Role
     {
-        return match ($role) {
+        return match ($value) {
             'admin' => Role::admin,
             'coord' => Role::coord,
             'thera' => Role::thera,

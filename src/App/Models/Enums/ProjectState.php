@@ -8,9 +8,9 @@ enum ProjectState
     case finished;
     case testing;
 
-    public static function from(string $role): ProjectState
+    public static function from(string $value): ProjectState
     {
-        return match ($role) {
+        return match ($value) {
             'development' => Self::development,
             'production' => Self::production,
             'finished' => Self::finished,
