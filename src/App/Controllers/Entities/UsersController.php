@@ -50,7 +50,7 @@ class UsersController extends Render
             }
         }, $users);
 
-        echo $this->view->render('pages/admin/users/index.html', ['title' => 'Users', 'users' => $users]);
+        echo $this->view->render('pages/admin/users/index.html', ['title' => 'Participants', 'users' => $users]);
         return;
     }
 
@@ -62,10 +62,7 @@ class UsersController extends Render
             return;
         }
 
-        $repo = new UsersRepository('global', 'main', $auth->gAuth);
-        $users = $repo->where('project = ' . $auth->project->id . " AND role != 'parti'");
-
-        echo $this->view->render('pages/admin/permissions/index.html', ['title' => 'Users', 'users' => $users]);
+        echo $this->view->render('pages/admin/permissions/index.html', ['title' => 'Permissions']);
         return;
     }
 
