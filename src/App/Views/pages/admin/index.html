@@ -24,13 +24,16 @@
 
             <div class="row row-cols-1 row-cols-md-2 mx-2">
                 <div class="col">
+                    {% if not current.center %}
+                    <p>
+                        You are not authenticated in any project. Please authenticate in one to continue.
+                    <p>
+                    {% else %}
                     <p>
                         Currently you are authenticated in center <span class="text-primary">{{ current.center }}</span> and assigned to project <span class="text-primary">{{ current.project ? current.project : "" }}</span>
                         {% if joined %}, indeed you has success <span class="text-success fw-bolder">join</span> the project. {% else %}. But you need to join the project in order to continue. {% endif %}
                     </p>
-                    {#
-                    {% include 'pages/admin/partials/index.change.html' %}
-                    #}
+                    {% endif %}
                 </div>
 
                 <div class="col">
