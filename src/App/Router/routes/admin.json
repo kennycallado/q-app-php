@@ -6,17 +6,12 @@
       "protected": true
     },
     "/parti": {
-      "controller": "Entities\\UsersController",
-      "action": "parti",
+      "controller": "Entities\\PartiController",
+      "action": "index",
       "protected": true
     },
-    "/permissions": {
-      "controller": "Entities\\UsersController",
-      "action": "permissions",
-      "protected": true
-    },
-    "/users/:id": {
-      "controller": "Entities\\UsersController",
+    "/parti/:id": {
+      "controller": "Entities\\PartiController",
       "action": "show",
       "protected": true
     }

@@ -8,9 +8,9 @@ use Src\Core\Render;
 use Src\Utils\Auth;
 use Src\Utils\Surreal;
 
-class UsersController extends Render
+class PartiController extends Render
 {
-    public function parti(Auth $auth)
+    public function index(Auth $auth)
     {
         // check if user has been joined the project
         if (!isset($auth->iAuth)) {
@@ -50,19 +50,7 @@ class UsersController extends Render
             }
         }, $users);
 
-        echo $this->view->render('pages/admin/users/index.html', ['title' => 'Participants', 'users' => $users]);
-        return;
-    }
-
-    public function permissions(Auth $auth)
-    {
-        if (!in_array($auth->role, ['admin', 'coord'])) {
-            header('Location: /admin');
-
-            return;
-        }
-
-        echo $this->view->render('pages/admin/permissions/index.html', ['title' => 'Permissions']);
+        echo $this->view->render('pages/admin/participants/index.html', ['title' => 'Participants', 'users' => $users]);
         return;
     }
 
@@ -104,7 +92,7 @@ class UsersController extends Render
         $user->active = $active ?? false;
         $user->scores = $scores;
 
-        echo $this->view->render('pages/admin/users/details.html', ['title' => 'Details', 'p_keys' => $p_keys, 'user' => $user, 'error' => $error]);
+        echo $this->view->render('pages/admin/participants/details.html', ['title' => 'Details', 'p_keys' => $p_keys, 'user' => $user, 'error' => $error]);
         return;
     }
 }
