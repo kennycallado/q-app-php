@@ -1,6 +1,5 @@
 {
   "name": "kennycallado/q-app-php",
-  "version": "v0.1.6",
   "type": "project",
   "autoload": {
     "psr-4": {
