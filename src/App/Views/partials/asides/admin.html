@@ -1,0 +1,113 @@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Sections</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <hr class="m-0 mb-2 border-2 border-secondary">
+
+    <div class="offcanvas-body">
+        {% if session.project is defined or session.role == 'admin' %}
+
+        <hr class=" mx-auto border-2 border-primary">
+        <p class="fw-bold mb-0 text-end">Project</p>
+
+        <div class="border-top list-group list-group-flush mb-3">
+            <!-- class="list-group-item list-group-item-action {{ 'admin/' in uri ? '' : 'active' }}" -->
+            <a
+                href="/admin"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/' in uri ? '' : 'bg-primary bg-opacity-25' }}"
+                aria-current="{{ 'admin/' in uri ? '' : 'true' }}">
+                <i class="bi bi-house me-2"></i>
+                Dashboard
+            </a>
+
+            {% if session.project is defined %}
+            <a
+                href="/admin/parti"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/parti' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/parti' in uri ? 'true' : '' }}">
+                <i class="bi bi-backpack me-2"></i>
+                Participants
+            </a>
+            {% endif %}
+
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/reports' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                <i class="bi bi-collection me-2"></i>
+                Resources
+            </a>
+
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/reports' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                <i class="bi bi-journal-arrow-down me-2"></i>
+                Library
+            </a>
+
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/reports' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                <i class="bi bi-graph-up me-2"></i>
+                Reports
+            </a>
+
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/settings' in uri ? 'true' : '' }}">
+                <i class="bi bi-sliders2-vertical me-2"></i>
+                Settings
+            </a>
+        </div>
+
+        <hr class=" mx-auto border-2 border-primary">
+        <p class="fw-bold mb-0 text-end">Center</p>
+
+        <div class="border-top list-group list-group-flush mb-3">
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/center/projects' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                <i class="bi bi-bricks me-2"></i>
+                Projects
+            </a>
+
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/settings' in uri ? 'true' : '' }}">
+                <i class="bi bi-sliders2-vertical me-2"></i>
+                Settings
+            </a>
+        </div>
+        {% endif %}
+
+        <hr class="mx-auto border-2 border-primary">
+        <p class="fw-bold mb-0 text-end">User</p>
+
+        <div class="border-top list-group list-group-flush mb-3">
+            <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/settings' in uri ? 'true' : '' }}">
+                <i class="bi bi-sliders2-vertical me-2"></i>
+                Settings
+            </a>
+        </div>
+
+        <hr class="mx-auto border-2 border-primary">
+    </div>
+</div>

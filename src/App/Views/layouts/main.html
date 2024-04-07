@@ -48,10 +48,7 @@
 
   <aside>
     {% block sidebar %}
-
-    {# if coord is not in a project #}
-    {% if session.project is defined or session.role == 'admin' %}
-    {% include 'partials/aside-admin.html' %}
+    {% include 'partials/asides/admin.html' %}
 
     <div class="bg-body-tertiary position-fixed bottom-0 start-0 m-3 rounded" style="z-index: 999;">
       <a class="btn btn-outline-info shadow"
@@ -63,7 +60,6 @@
         <i class="bi bi-caret-right-square fs-3"></i>
       </a>
     </div>
-    {% endif %}
 
     {% endblock %}
   </aside>

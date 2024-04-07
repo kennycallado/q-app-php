@@ -69,17 +69,23 @@ class AuthController extends Render
             return header('Location: /login');
         }
 
-        // check if user is thera and is assigned to a project
-        if (!isset($auth->project) && !in_array($auth->role, ['admin', 'coord'])) {
-            $error = (object) ['code' => '400', 'details' => 'You are not assigned to any project'];
-            $_SESSION['error'] = json_encode($error);
-
-            return header('Location: /login');
-        } elseif (isset($auth->project)) {
+        if (isset($auth->project)) {
             setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
 
             $_SESSION['project'] = $auth->project;
         }
+
+        // check if user is thera and is assigned to a project
+        // if (!isset($auth->project) && !in_array($auth->role, ['admin', 'coord'])) {
+        //     $error = (object) ['code' => '400', 'details' => 'You are not assigned to any project'];
+        //     $_SESSION['error'] = json_encode($error);
+
+        //     return header('Location: /login');
+        // } elseif (isset($auth->project)) {
+        //     setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
+
+        //     $_SESSION['project'] = $auth->project;
+        // }
 
         setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');  // valid for 30 days
