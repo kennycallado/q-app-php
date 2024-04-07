@@ -4,8 +4,8 @@ namespace Src\App\Models;
 class Join
 {
     private string $id;
-    private string $in; // user id
-    private string $out; // project id 
+    private string $in;  // user id
+    private string $out;  // project id
     private bool $completed;
     private ?object $score;
 

@@ -148,7 +148,7 @@ class AuthController extends Render
         $auth->project->id = $project->id;
         $auth->project->name = $project->name;
         $auth->project->center = $project->center->name;
-        
+
         setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');  // valid for 30 days
 

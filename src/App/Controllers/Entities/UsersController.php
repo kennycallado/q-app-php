@@ -9,7 +9,6 @@ class UsersController extends Render
 {
     public function settings(Auth $auth)
     {
-
         echo $this->view->render('pages/user/settings.html', ['title' => 'Settings']);
         return;
     }
