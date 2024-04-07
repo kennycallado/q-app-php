@@ -105,6 +105,18 @@ class Surreal
     }
 
     /**
+     * fetch
+     * Fetch records
+     * @param string $statement fields that want to fetch
+     * @return $this
+     */
+    public function fetch($statement)
+    {
+        $this->query .= ' FETCH ' . $statement;
+        return $this;
+    }
+
+    /**
      * andWhere
      * And Where statement
      * @param string $statement fields and condition combo eg: age > 18
