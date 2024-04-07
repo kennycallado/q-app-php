@@ -1,0 +1,9 @@
+{
+  "GET": {
+    "/settings": {
+      "controller": "Entities\\UsersController",
+      "action": "settings",
+      "protected": true
+    }
+  }
+}

@@ -16,8 +16,8 @@
             <a
                 href="/admin"
                 type="button"
-                class="list-group-item list-group-item-action {{ 'admin/' in uri ? '' : 'bg-primary bg-opacity-25' }}"
-                aria-current="{{ 'admin/' in uri ? '' : 'true' }}">
+                class="list-group-item list-group-item-action {{ '/admin' == uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ '/admin' == uri ? 'true' : '' }}">
                 <i class="bi bi-house me-2"></i>
                 Dashboard
             </a>
@@ -75,19 +75,19 @@
 
         <div class="border-top list-group list-group-flush mb-3">
             <a
-                href="#"
+                href="/center/projects"
                 type="button"
-                class="list-group-item list-group-item-action {{ 'admin/center/projects' in uri ? 'bg-primary bg-opacity-25' : '' }}"
-                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                class="list-group-item list-group-item-action {{ 'center/projects' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'center/projects' in uri ? 'true' : '' }}">
                 <i class="bi bi-bricks me-2"></i>
                 Projects
             </a>
 
             <a
-                href="#"
+                href="/center/settings"
                 type="button"
-                class="list-group-item list-group-item-action {{ 'admin/center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
-                aria-current="{{ 'admin/settings' in uri ? 'true' : '' }}">
+                class="list-group-item list-group-item-action {{ 'center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'center/settings' in uri ? 'true' : '' }}">
                 <i class="bi bi-sliders2-vertical me-2"></i>
                 Settings
             </a>
@@ -99,10 +99,10 @@
 
         <div class="border-top list-group list-group-flush mb-3">
             <a
-                href="#"
+                href="/user/settings"
                 type="button"
-                class="list-group-item list-group-item-action {{ 'admin/center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
-                aria-current="{{ 'admin/settings' in uri ? 'true' : '' }}">
+                class="list-group-item list-group-item-action {{ 'user/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'user/settings' in uri ? 'true' : '' }}">
                 <i class="bi bi-sliders2-vertical me-2"></i>
                 Settings
             </a>
