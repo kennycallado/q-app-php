@@ -24,7 +24,7 @@ class UsersRepository
     }
 
     /**
-     * Get all users
+     * Get users by where statement
      *
      * @return User[]
      */
@@ -36,8 +36,10 @@ class UsersRepository
     /**
      * Find user by id
      *
-     * @param int $id
-     * @return User[]
+     * @param string $column
+     * @param string $value
+     *
+     * @return User
      */
     public function findBy(string $column, string $value)
     {
