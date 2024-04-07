@@ -150,7 +150,7 @@ class AuthController extends Render
         $auth->project->center = $project->center->name;
         
         setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
-        setcookie('iAuth', $auth->iAuth, time() + (86400 * 30), '/');  // valid for 30 days
+        setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');  // valid for 30 days
 
         $_SESSION['project'] = $auth->project;
 
@@ -162,7 +162,7 @@ class AuthController extends Render
         // remove session, cookies, etc
 
         setcookie('gAuth', '', -1, '/');
-        setcookie('iAuth', '', -1, '/');
+        setcookie('pAuth', '', -1, '/');
         setcookie('role', '', -1, '/');
         setcookie('user_id', '', -1, '/');
         setcookie('project', '', -1, '/');

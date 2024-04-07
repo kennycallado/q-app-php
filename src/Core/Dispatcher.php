@@ -40,8 +40,8 @@ class Dispatcher
             } else {
                 $auth = new Auth($_ENV['AUTH_URL']);
 
-                if (isset($_COOKIE['iAuth'])) {
-                    $auth->iAuth = $_COOKIE['iAuth'];
+                if (isset($_COOKIE['pAuth'])) {
+                    $auth->pAuth = $_COOKIE['pAuth'];
                 }
 
                 if (isset($_COOKIE['project'])) {

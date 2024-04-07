@@ -13,7 +13,7 @@ class Auth
     public string $user_id;
     public string $role;
     public string $gAuth;
-    public ?string $iAuth;
+    public ?string $pAuth;
     public ?object $project;
     public $error = null;
 
@@ -122,7 +122,7 @@ class Auth
             return $this;
         }
 
-        $this->iAuth = $response->token;
+        $this->pAuth = $response->token;
 
         return $this;
     }

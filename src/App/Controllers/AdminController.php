@@ -39,7 +39,7 @@ class AdminController extends Render
         $prepare = [
             'title' => 'Dashboard',
             'error' => $error,
-            'joined' => isset($auth->iAuth) ? true : false,
+            'joined' => isset($auth->pAuth) ? true : false,
             'projects_count' => $p_count,
             'users_count' => $u_count,
             'payments_count' => 1000,

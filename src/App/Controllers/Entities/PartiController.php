@@ -13,14 +13,14 @@ class PartiController extends Render
     public function index(Auth $auth)
     {
         // check if user has been joined the project
-        if (!isset($auth->iAuth)) {
+        if (!isset($auth->pAuth)) {
             $error = (object) ['code' => '400', 'details' => 'You have not joined the project yet.'];
             $_SESSION['error'] = json_encode($error);
 
             return header('Location: /admin');
         }
 
-        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->iAuth);
+        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
         $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
         $users = [];
 
@@ -60,7 +60,7 @@ class PartiController extends Render
         unset($_SESSION['error']);
 
         $g_surreal = new Surreal('global', 'amin', $auth->gAuth);
-        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->iAuth);
+        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
 
         $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
 
