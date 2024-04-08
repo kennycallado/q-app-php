@@ -84,6 +84,15 @@
             </a>
 
             <a
+                href="#"
+                type="button"
+                class="list-group-item list-group-item-action {{ 'admin/reports' in uri ? 'bg-primary bg-opacity-25' : '' }}"
+                aria-current="{{ 'admin/reports' in uri ? 'true' : '' }}">
+                <i class="bi bi-journal-arrow-down me-2"></i>
+                Library
+            </a>
+
+            <a
                 href="/admin/center/settings"
                 type="button"
                 class="list-group-item list-group-item-action {{ 'center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
