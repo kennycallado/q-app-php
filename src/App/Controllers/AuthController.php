@@ -75,18 +75,6 @@ class AuthController extends Render
             $_SESSION['project'] = $auth->project;
         }
 
-        // check if user is thera and is assigned to a project
-        // if (!isset($auth->project) && !in_array($auth->role, ['admin', 'coord'])) {
-        //     $error = (object) ['code' => '400', 'details' => 'You are not assigned to any project'];
-        //     $_SESSION['error'] = json_encode($error);
-
-        //     return header('Location: /login');
-        // } elseif (isset($auth->project)) {
-        //     setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
-
-        //     $_SESSION['project'] = $auth->project;
-        // }
-
         setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('role', $auth->role, time() + (86400 * 30), '/');  // valid for 30 days
@@ -97,12 +85,12 @@ class AuthController extends Render
     }
 
     function join(Auth $auth, object $body)
-    {  // project_id, pass
+    {
         if (empty($body->project) || empty($body->pass)) {
             $error = (object) ['code' => '400', 'datils' => 'There are missing fields'];
             $_SESSION['error'] = json_encode($error);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         // check if is trying to join as guest
@@ -110,14 +98,14 @@ class AuthController extends Render
             $error = (object) ['code' => '400', 'datils' => 'Is not possible to join as guest'];
             $_SESSION['error'] = json_encode($error);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
 
-        $sql = '
-            IF ' . $body->project . ' IN (SELECT VALUE out FROM join WHERE in IS ' . $auth->user_id . ') {
-                UPDATE ' . $auth->user_id . ' SET project = ' . $body->project . ";
+        $sql = "
+            IF $body->project IN (SELECT VALUE out FROM join WHERE in IS $auth->user_id) {
+                UPDATE $auth->user_id SET project = $body->project;
                 RETURN SELECT id, name, center.name FROM ONLY $body->project LIMIT 1;
             };";
 
@@ -125,7 +113,7 @@ class AuthController extends Render
         if (isset($result->code)) {
             $_SESSION['error'] = json_encode($result);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         $project = $result[0]->result;
@@ -133,14 +121,14 @@ class AuthController extends Render
             $error = (object) ['code' => '400', 'details' => 'You are not allowed to join this project'];
             $_SESSION['error'] = json_encode($error);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         $auth = $auth->join($body->pass, $project->center->name, $project->name);
         if (isset($auth->error)) {
             $_SESSION['error'] = json_encode($auth->error);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         // update cookies and session

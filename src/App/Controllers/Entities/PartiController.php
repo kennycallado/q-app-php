@@ -17,7 +17,7 @@ class PartiController extends Render
             $error = (object) ['code' => '400', 'details' => 'You have not joined the project yet.'];
             $_SESSION['error'] = json_encode($error);
 
-            return header('Location: /admin');
+            return header('Location: /user/settings');
         }
 
         $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);

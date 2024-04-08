@@ -9,7 +9,36 @@
      <div class="card">
         <div class="card-body">
 
-            user
+            <h5 class="mb-0">Authentication:</h5>
+            <hr class="mt-1 border-2 border-primary">
+
+            {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+              <span class="lead">Error:<span>
+              <br>
+              <small class="ms-2">{{ error }}</small>
+            </div>
+            {% endif %}
+
+            <div class="row row-cols-1 row-cols-md-2 mx-2">
+                <div class="col">
+                    {% if not current.center %}
+                    <p>
+                        You are not authenticated in any project. Please authenticate in one to continue.
+                    <p>
+                    {% else %}
+                    <p>
+                        Currently you are authenticated in center <span class="text-primary">{{ current.center }}</span> and assigned to project <span class="text-primary">{{ current.project ? current.project : "" }}</span>
+                        {% if joined %}, indeed you has success <span class="text-success fw-bolder">join</span> the project. {% else %}. But you need to join the project in order to continue. {% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+
+                <div class="col">
+                    {% include 'partials/auth/join.html' %}
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

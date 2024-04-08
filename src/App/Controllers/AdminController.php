@@ -15,12 +15,15 @@ class AdminController extends Render
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
 
         $sql = '';
-        if (isset($auth->project)) {
-            $sql .= "SELECT count() AS u_count FROM join WHERE out IN (SELECT VALUE id FROM projects WHERE center.name IS '" . $auth->project->center . "') AND in.role IS 'parti' GROUP BY u_count;";
-            $sql .= "SELECT count() AS p_count FROM projects WHERE center.name = '" . $auth->project->center . "' GROUP BY p_count;";
+        if (!isset($auth->pAuth)) {
+            $sql .= 'SELECT *, (SELECT id, name FROM projects WHERE center = $parent.id) AS projects FROM centers;';
         }
-
-        $sql .= 'SELECT *, (SELECT id, name FROM projects WHERE center = $parent.id) AS projects FROM centers';
+        
+        if (isset($auth->project)) {
+            $sql .= "SELECT count() AS p_u_count FROM join WHERE out IS ". $auth->project->id ." AND in.role IS 'parti' GROUP BY p_u_count;";
+            $sql .= "SELECT count() AS c_u_count FROM join WHERE out IN (SELECT VALUE id FROM projects WHERE center.name IS '" . $auth->project->center . "') AND in.role IS 'parti' GROUP BY c_u_count;";
+            $sql .= "SELECT count() AS c_p_count FROM projects WHERE center.name = '" . $auth->project->center . "' GROUP BY c_p_count;";
+        }
 
         $multi = $g_surreal->rawQuery($sql);
         if (isset($multi->code)) {
@@ -32,18 +35,24 @@ class AdminController extends Render
 
         $num_rows = count($multi);
 
+        $c_p_count = $multi[--$num_rows]->result[0]->c_p_count ?? 0;
+        $c_u_count = $multi[--$num_rows]->result[0]->c_u_count ?? 0;
+        $p_u_count = $multi[--$num_rows]->result[0]->p_u_count ?? 0;
         $centers = $multi[--$num_rows]->result ?? [];
-        $p_count = $multi[--$num_rows]->result[0]->p_count ?? 0;
-        $u_count = $multi[--$num_rows]->result[0]->u_count ?? 0;
 
         $prepare = [
             'title' => 'Dashboard',
             'error' => $error,
             'joined' => isset($auth->pAuth) ? true : false,
-            'projects_count' => $p_count,
-            'users_count' => $u_count,
+            'centers' => $centers ?? [],
+            'project' => [
+                'users_count' => isset($p_u_count) ? $p_u_count : 0,
+            ],
+            'center' => [
+                'projects_count' => isset($c_p_count) ? $c_p_count : 0,
+                'users_count' => isset($c_u_count) ? $c_u_count : 0,
+            ],
             'payments_count' => 1000,
-            'centers' => $centers,
             'current' => [
                 'center' => $auth->project->center ?? '',
                 'project' => $auth->project->name ?? ''
