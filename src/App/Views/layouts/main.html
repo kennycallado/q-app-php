@@ -50,6 +50,7 @@
     {% block sidebar %}
     {% include 'partials/asides/admin.html' %}
 
+    {% if session.project is defined %}
     <div class="bg-body-tertiary position-fixed bottom-0 start-0 m-3 rounded" style="z-index: 999;">
       <a class="btn btn-outline-info shadow"
         data-bs-toggle="offcanvas"
@@ -60,6 +61,7 @@
         <i class="bi bi-caret-right-square fs-3"></i>
       </a>
     </div>
+    {% endif %}
 
     {% endblock %}
   </aside>
