@@ -14,7 +14,7 @@ class IndexController extends Render
             'params' => $params
         ];
 
-        echo $this->view->render('pages/index/index.html', $prepare);
+        echo $this->view->render('pages/home/index.html', $prepare);
         return;
     }
 }
