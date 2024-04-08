@@ -14,6 +14,21 @@
       "controller": "Entities\\PartiController",
       "action": "show",
       "protected": true
+    },
+    "/center/settings": {
+      "controller": "Entities\\CentersController",
+      "action": "settings",
+      "protected": true
+    },
+    "/center/projects": {
+      "controller": "Entities\\CentersController",
+      "action": "projects",
+      "protected": true
+    },
+    "/center/projects/:id": {
+      "controller": "Entities\\CentersController",
+      "action": "projects_show",
+      "protected": true
     }
   }
 }

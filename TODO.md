@@ -1,6 +1,8 @@
 
 ## TODO:
 
+- [ ] build: unable to create arm image with intl
+
 - [X] change route users/:id for parti/:id
 - [ ] models: relation should be object|string instead of object. repos will no construct the object
 

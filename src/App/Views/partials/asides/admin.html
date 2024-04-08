@@ -75,7 +75,7 @@
 
         <div class="border-top list-group list-group-flush mb-3">
             <a
-                href="/center/projects"
+                href="/admin/center/projects"
                 type="button"
                 class="list-group-item list-group-item-action {{ 'center/projects' in uri ? 'bg-primary bg-opacity-25' : '' }}"
                 aria-current="{{ 'center/projects' in uri ? 'true' : '' }}">
@@ -84,7 +84,7 @@
             </a>
 
             <a
-                href="/center/settings"
+                href="/admin/center/settings"
                 type="button"
                 class="list-group-item list-group-item-action {{ 'center/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
                 aria-current="{{ 'center/settings' in uri ? 'true' : '' }}">
@@ -93,20 +93,6 @@
             </a>
         </div>
         {% endif %}
-
-        <hr class="mx-auto border-2 border-primary">
-        <p class="fw-bold mb-0 text-end">User</p>
-
-        <div class="border-top list-group list-group-flush mb-3">
-            <a
-                href="/user/settings"
-                type="button"
-                class="list-group-item list-group-item-action {{ 'user/settings' in uri ? 'bg-primary bg-opacity-25' : '' }}"
-                aria-current="{{ 'user/settings' in uri ? 'true' : '' }}">
-                <i class="bi bi-sliders2-vertical me-2"></i>
-                Settings
-            </a>
-        </div>
 
         <hr class="mx-auto border-2 border-primary">
     </div>

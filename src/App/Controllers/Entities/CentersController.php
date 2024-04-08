@@ -10,7 +10,7 @@ class CentersController extends Render
 {
     public function settings(Auth $auth)
     {
-        echo $this->view->render('pages/center/settings.html', ['title' => 'Settings']);
+        echo $this->view->render('pages/admin/center/settings.html', ['title' => 'Settings']);
         return;
     }
 
@@ -19,7 +19,7 @@ class CentersController extends Render
         $repo = new ProjectsRepository('global', 'main', $auth->gAuth);
         $projects = $repo->all('center');
 
-        echo $this->view->render('pages/center/projects/index.html', ['title' => 'Projects', 'projects' => $projects]);
+        echo $this->view->render('pages/admin/center/projects/index.html', ['title' => 'Projects', 'projects' => $projects]);
         return;
     }
 
@@ -29,7 +29,7 @@ class CentersController extends Render
             'id' => $params['id']
         ];
 
-        echo $this->view->render('pages/center/projects/details.html', ['title' => 'Projects', 'project' => $project]);
+        echo $this->view->render('pages/admin/center/projects/details.html', ['title' => 'Projects', 'project' => $project]);
         return;
     }
 }
