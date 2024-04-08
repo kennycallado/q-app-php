@@ -35,10 +35,15 @@ class AdminController extends Render
 
         $num_rows = count($multi);
 
-        $c_p_count = $multi[--$num_rows]->result[0]->c_p_count ?? 0;
-        $c_u_count = $multi[--$num_rows]->result[0]->c_u_count ?? 0;
-        $p_u_count = $multi[--$num_rows]->result[0]->p_u_count ?? 0;
-        $centers = $multi[--$num_rows]->result ?? [];
+        if (!isset($auth->pAuth)) {
+            $centers = $multi[0]->result ?? [];
+        } else {
+            $c_p_count = $multi[--$num_rows]->result[0]->c_p_count ?? 0;
+            $c_u_count = $multi[--$num_rows]->result[0]->c_u_count ?? 0;
+            $p_u_count = $multi[--$num_rows]->result[0]->p_u_count ?? 0;
+            $centers = $multi[0]->result ?? [];
+        }
+
 
         $prepare = [
             'title' => 'Dashboard',
