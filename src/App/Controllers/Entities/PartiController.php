@@ -74,6 +74,7 @@ class PartiController extends Render
         // get user active and scores
         $sql = "SELECT VALUE active FROM ONLY $user->id LIMIT 1;";
         $sql .= "SELECT * FROM scores WHERE user = $user->id ORDER BY created DESC;";
+        $sql .= "SELECT id, created, completed, resource.ref, resource.id FROM papers WHERE user = $user->id ORDER BY created DESC;";
 
         $res = $i_surreal->rawQuery($sql);
         if (isset($res->code)) {
@@ -85,14 +86,23 @@ class PartiController extends Render
 
         $num_rows = count($res);
 
+        $papers = $res[--$num_rows]->result;
         $scores = $res[--$num_rows]->result;
         $active = $res[--$num_rows]->result;
 
-        /** @var IntervUser $user */
+        /** @var mixed $user */
         $user->active = $active ?? false;
-        $user->scores = $scores;
+        $user->scores = $scores ?? [];
+        $user->papers = $papers ?? [];
 
-        echo $this->view->render('pages/admin/participants/details.html', ['title' => 'Details', 'p_keys' => $p_keys, 'user' => $user, 'error' => $error]);
+        $prepare = [
+            'title' => 'Details',
+            'error' => $error,
+            'p_keys' => $p_keys,
+            'user' => $user,
+        ];
+
+        echo $this->view->render('pages/admin/participants/details.html', $prepare);
         return;
     }
 }

@@ -17,58 +17,56 @@
 
             <hr class="m-0 mb-2 border-2 border-primary">
 
-            <section>
-                <h3 class="text-center text-primary"><u>Scores</u></h3>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <button
+                        class="nav-link active"
+                        id="home-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#papers-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="home-tab-pane"
+                        aria-selected="true">
+                        Papers
+                    </button>
+                </li>
 
-                <table class="w-75 mx-auto table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th class="ps-2" scope="col">id</th>
-                            <th scope="col">Step</th>
-                            <th scope="col">State</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Edit</th>
-                        </tr>
-                    </thead>
+                <li class="nav-item">
+                    <button
+                        class="nav-link"
+                        id="home-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#scores-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="home-tab-pane"
+                        aria-selected="true">
+                        Scores
+                    </button>
+                </li>
+            </ul>
 
-                    <tbody>
-                        {% for record in user.scores %}
-                        <tr>
-                            <td
-                                class="ps-2 overflow-hidden text-truncate"
-                                style="max-width: 7rem;">
-                                {{ record.id }}
-                            </td>
-                            <td class="ps-2">{{ record.score.step }}</td>
-                            <td class="ps-2">{{ record.score.state }}</td>
-                            <td class="ps-2">{{ record.created | format_datetime(locale='es-ES') }}</td>
-                            <td class="ps-2"><a href="#"><i class="bi bi-pencil-square"></i></a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+            <div class="tab-content" id="myTabContent">
+                <section
+                    class="tab-pane fade show active"
+                    id="papers-tab-pane"
+                    role="tabpanel"
+                    aria-labelledby="home-tab"
+                    tabindex="0">
+                    {% include 'pages/admin/partials/parti.papers.html' %}
+                </section>
 
-                    <tfoot>
-                        <tr>
-                            <td colspan="5">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center my-1">
-                                        <li class="page-item">
-                                            <a class="page-link py-1" href="#"><i class="bi bi-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link py-1" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link py-1" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link py-1" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link py-1" href="#"><i class="bi bi-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </td>
-                        </tr>
-                    </tfoot>
+                <section
+                    class="tab-pane fade"
+                    id="scores-tab-pane"
+                    role="tabpanel"
+                    aria-labelledby="profile-tab"
+                    tabindex="0">
+                    {% include 'pages/admin/partials/parti.scores.html' %}
+                </section>
+            </div>
 
-                </table>
-            </section>
         </div>
 
         <button class="btn btn-primary" onclick="history.back()">Back</button>
