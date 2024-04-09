@@ -99,7 +99,7 @@ class PartiController extends Render
             'title' => 'Details',
             'error' => $error,
             'p_keys' => $p_keys,
-            'user' => $user,
+            'user' => $user
         ];
 
         echo $this->view->render('pages/admin/participants/details.html', $prepare);
