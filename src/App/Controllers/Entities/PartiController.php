@@ -38,7 +38,7 @@ class PartiController extends Render
             $i_users = $i_users[0]->result;
         }
 
-        $sql = "SELECT VALUE in FROM join WHERE out IS ". $auth->project->id ." AND in.role IS 'parti' FETCH in;";
+        $sql = 'SELECT VALUE in FROM join WHERE out IS ' . $auth->project->id . " AND in.role IS 'parti' FETCH in;";
         $users = $g_surreal->rawQuery($sql);
         if (isset($users->code)) {
             echo 'Error: ' . $users->code;
