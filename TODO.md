@@ -2,6 +2,11 @@
 ## TODO:
 
 - [ ] build: unable to create arm image with intl
+  - needs qemu-user-static but don't know how to get it in nixos
+
+- [X] parti: details shows info by tabs
+  - papers
+  - scores
 
 - [X] change route users/:id for parti/:id
 - [ ] models: relation should be object|string instead of object. repos will no construct the object
