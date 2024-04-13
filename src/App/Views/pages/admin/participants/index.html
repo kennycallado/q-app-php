@@ -20,8 +20,8 @@
                     <tr>
                         <th class="ps-2 fs-5" scope="col">id</th>
                         <th class="fs-5" scope="col">Username</th>
-                        <th class="fs-5" scope="col">Project</th>
                         <th class="fs-5" scope="col">Active</th>
+                        <th class="fs-5" scope="col">Completed</th>
                         <th class="fs-5" scope="col">Edit</th>
                     </tr>
                 </thead>
@@ -35,9 +35,17 @@
                             {{ user.id }}
                         </td>
                         <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.username }}</td>
-                        <td class="ps-2"><a href="/admin/projects/{{user.project|url_encode}}">{{ user.project }}</a></td>
                         <td class="ps-2">
                             {% if user.active %}
+                            <!-- <i class="bi bi-check2"></i> -->
+                            <i class="ms-2 text-success bi bi-check-square"></i>
+                            {% else %}
+                            <!-- <i class="bi bi-x-lg"></i> -->
+                            <i class="ms-2 text-danger bi bi-x-square"></i>
+                            {% endif %}
+                        </td>
+                        <td class="ps-2">
+                            {% if user.completed %}
                             <!-- <i class="bi bi-check2"></i> -->
                             <i class="ms-2 text-success bi bi-check-square"></i>
                             {% else %}

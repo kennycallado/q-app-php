@@ -20,8 +20,9 @@ class PartiController extends Render
             return header('Location: /user/settings');
         }
 
+        $g_surreal = new Surreal('global', 'main', $auth->gAuth);
         $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
-        $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
+        // $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
         $users = [];
 
         $sql = 'SELECT * FROM users;';
@@ -37,14 +38,27 @@ class PartiController extends Render
             $i_users = $i_users[0]->result;
         }
 
+        $sql = "SELECT VALUE in FROM join WHERE out IS ". $auth->project->id ." AND in.role IS 'parti' FETCH in;";
+        $users = $g_surreal->rawQuery($sql);
+        if (isset($users->code)) {
+            echo 'Error: ' . $users->code;
+            print_r($users);
+
+            return;
+        } else {
+            $users = $users[0]->result;
+        }
+
         /** @var User[] */
-        $users = $u_repo->where('project = ' . $auth->project->id . " AND role == 'parti'");
+        // $users = $u_repo->where('project = ' . $auth->project->id . " AND role == 'parti'");
 
         // map $users to add active from i_users
         array_map(function (mixed $user) use ($i_users) {
             foreach ($i_users as $i_user) {
                 if ($i_user->id == $user->id) {
                     $user->active = $i_user->active;
+                    $user->completed = $i_user->completed;
+
                     break;
                 }
             }
@@ -72,7 +86,7 @@ class PartiController extends Render
         $user = $u_repo->findBy('id', $params['id'])[0];
 
         // get user active and scores
-        $sql = "SELECT VALUE active FROM ONLY $user->id LIMIT 1;";
+        $sql = "SELECT active, completed FROM ONLY $user->id LIMIT 1;";
         $sql .= "SELECT * FROM scores WHERE user = $user->id ORDER BY created DESC;";
         $sql .= "SELECT id, created, completed, resource.ref, resource.id FROM papers WHERE user = $user->id ORDER BY created DESC;";
 
@@ -88,10 +102,11 @@ class PartiController extends Render
 
         $papers = $res[--$num_rows]->result;
         $scores = $res[--$num_rows]->result;
-        $active = $res[--$num_rows]->result;
+        $mix = $res[--$num_rows]->result;
 
         /** @var mixed $user */
-        $user->active = $active ?? false;
+        $user->completed = $mix->completed ?? false;
+        $user->active = $mix->active ?? false;
         $user->scores = $scores ?? [];
         $user->papers = $papers ?? [];
 
