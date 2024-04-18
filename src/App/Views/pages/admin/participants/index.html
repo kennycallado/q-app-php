@@ -15,7 +15,7 @@
 
             <hr class="m-0 mb-2 border-2 border-primary">
 
-            <table class="w-75 mx-auto table table-sm table-striped">
+            <table class="w-75 mx-auto mb-0 table table-sm table-striped">
                 <thead>
                     <tr>
                         <th class="ps-2 fs-5" scope="col">id</th>
@@ -30,7 +30,7 @@
                     {% for user in users %}
                     <tr>
                         <td
-                            class="ps-2 overflow-hidden text-truncate"
+                            class="ps-2 overflow-hidden text-truncate border-start"
                             style="max-width: 7rem;">
                             {{ user.id }}
                         </td>
@@ -53,16 +53,16 @@
                             <i class="ms-2 text-danger bi bi-x-square"></i>
                             {% endif %}
                         </td>
-                        <td class="ps-2"><a href="/admin/parti/{{user.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
+                        <td class="ps-2 border-end"><a href="/admin/parti/{{user.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
 
                 <tfoot>
                     <tr>
-                        <td colspan="5">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center my-1">
+                        <td class="border-0" colspan="5">
+                            <nav class="mt-3" aria-label="Page navigation example">
+                                <ul class="mt-0 pagination justify-content-center my-1">
                                     <li class="page-item"><a class="page-link py-1" href="#"><i class="bi bi-chevron-left"></i></a></li>
                                     <li class="page-item"><a class="page-link py-1" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link py-1" href="#">2</a></li>
