@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web-server:
-    image: q-app-php:latest
+    image: kennycallado/q-app-php:latest
     build:
       context: .
       dockerfile: Containerfile
