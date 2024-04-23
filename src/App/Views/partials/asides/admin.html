@@ -9,7 +9,10 @@
         {% if session.project is defined or session.role == 'admin' %}
 
         <hr class=" mx-auto border-2 border-primary">
-        <p class="fw-bold mb-0 text-end">Project</p>
+
+        <div class="d-flex">
+            <p class="mb-0 fw-bold">Project: <span class="ms-2 text-primary">{{ session.project.name }}</span></p>
+        </div>
 
         <div class="border-top list-group list-group-flush mb-3">
             <!-- class="list-group-item list-group-item-action {{ 'admin/' in uri ? '' : 'active' }}" -->
@@ -62,7 +65,10 @@
         </div>
 
         <hr class=" mx-auto border-2 border-primary">
-        <p class="fw-bold mb-0 text-end">Center</p>
+
+        <div class="d-flex">
+            <p class="mb-0 fw-bold">Center: <span class="ms-2 text-primary">{{ session.project.center }}</span></p>
+        </div>
 
         <div class="border-top list-group list-group-flush mb-3">
             <a
