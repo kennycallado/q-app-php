@@ -61,6 +61,12 @@ class ProjectsRepository
 
     public function create(string $name, string $center_name, ?array $keys)
     {
-        return $this->surreal->select('*')->tables('projects')->where("$column = $value")->exec()[0]->result;
+        $keys = $keys ? json_encode($keys) : 'NONE';
+        return $this->surreal->rawQuery(
+            "CREATE projects SET
+                name = '$name',
+                center = (SELECT value id FROM only centers WHERE name is '$center_name' LIMIT 1),
+                keys = $keys;"
+        )[0]->result;
     }
 }
