@@ -5,12 +5,113 @@
     <h1 class="p-2"><u>Details</u></h1>
 </div>
 
-<section>
+<section id="project-details">
      <div class="card">
         <div class="card-body">
-            {{ dump(project) }}
+
+            <form class="w-50 mx-auto d-none" action="/admin/center/projects" method="POST">
+                <div id="hidden-keys">
+                    <input type="hidden" name="center_name" value="{{ session.project.center }}">
+
+                    {% for key in project.keys %}
+                    <input type="hidden" name="keys[]" value="{{ key }}">
+                    {% endfor %}
+                </div>
+            </form>
+
+            <div class="row row-cols-1 row-cols-md-2 text-center justify-content-center mb-3">
+                <div class="col">
+                    <div class="mb-3">
+                    {% include 'pages/admin/center/projects/partials/details.name.html' %}
+                    </div>
+
+                    <div class="mb-3">
+                    {% include 'pages/admin/center/projects/partials/details.brand.html' %}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div>
+                    {% include 'pages/admin/center/projects/partials/details.keys.html' %}
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-primary">
+
+            <div class="row row-cols-1 row-cols-md-2 text-center justify-content-center mb-3">
+                <div class="col mb-3">
+                    <div class="card border border-primary rounded">
+                        <div class="card-header text-center bg-primary bg-opacity-25">
+                            <h5 class="mb-0 fw-bold text-primary">Version</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="fw-bold">0.1</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card border border-primary rounded">
+                        <div class="card-header text-center bg-primary bg-opacity-25">
+                            <h5 class="mb-0 fw-bold text-primary">State</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="fw-bold">{{ project.state }}</h3>
+                        </div>
+
+                        <!-- <div class="card-footer"> -->
+                        <!--     <a class="btn btn-primary disabled" href="#">Change</a> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-primary">
+
+            <div class="card border border-primary rounded">
+                <div class="card-header text-center bg-primary bg-opacity-25">
+                    <h5 class="mb-0 fw-bold text-primary">Participants</h5>
+                </div>
+
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-md-3">
+                        <div class="col d-flex border-end">
+                            <h3 class="mb-0 fw-bold">Active:</h3>
+                            <span class="ms-auto fw-bold lead text-warning">1</span>
+                        </div>
+
+                        <div class="col d-flex border-end">
+                            <h3 class="mb-0 fw-bold">Completed:</h3>
+                            <span class="ms-auto fw-bold lead text-success">1</span>
+                        </div>
+
+                        <div class="col d-flex">
+                            <h3 class="mb-0 fw-bold">Total:</h3>
+                            <span class="ms-auto fw-bold lead text-primary">{{ project.users_count}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- <div class="card-footer text-center"> -->
+        <!--     <div class="row justify-content-center"> -->
+        <!--         <button -->
+        <!--             class="btn btn-outline-primary bg-primary bg-opacity-10 fw-bold disabled" -->
+        <!--             type="button"> -->
+        <!--             Save -->
+        <!--         </button> -->
+        <!--     </div> -->
+        <!-- </div> -->
+
     </div>
 </section>
+
+<script>
+    {% include 'pages/admin/center/projects/partials/details.js' %}
+</script>
 
 {% endblock %}

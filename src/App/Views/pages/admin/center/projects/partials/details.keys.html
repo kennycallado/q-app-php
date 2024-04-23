@@ -1,0 +1,35 @@
+<div class="card border border-primary rounded">
+
+    <div class="card-header text-center bg-primary bg-opacity-25">
+        <h5 class="mb-0 fw-bold text-primary">Keys</h5>
+    </div>
+
+    <div class="card-body">
+        <ul class="list-group" id="list">
+
+            {% for key in project.keys %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ key }}</span>
+                <span style="cursor: pointer;" onclick="removeItemAndInput(this)">❌</span>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+    <!-- <div class="card-footer"> -->
+    <!--     <div class="d-flex"> -->
+    <!--         <input -->
+    <!--             class="form-control border-info text-center" -->
+    <!--             type="text" -->
+    <!--             id="key-input" -->
+    <!--             placeholder="Add Key"/> -->
+
+    <!--         <button -->
+    <!--             class="btn btn-outline-info ms-2" -->
+    <!--             id="key-add"> -->
+    <!--             Add -->
+    <!--         </button> -->
+    <!--     </div> -->
+    <!-- </div> -->
+</div>

@@ -22,13 +22,20 @@
     },
     "/center/projects": {
       "controller": "Entities\\CentersController",
-      "action": "projects",
+      "action": "projects_index",
       "protected": true
     },
     "/center/projects/:id": {
       "controller": "Entities\\CentersController",
       "action": "projects_show",
       "protected": true
+    }
+  },
+  "POST": {
+    "/center/projects": {
+      "controller": "Entities\\CentersController",
+      "action": "projects_store",
+      "protected": true 
     }
   }
 }

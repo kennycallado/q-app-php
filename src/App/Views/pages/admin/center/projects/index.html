@@ -8,59 +8,65 @@
 <section aria-label="Projects">
      <div class="card">
         <div class="card-body">
-            <div>
-                <p>Create project</p>
+
+            <div class="d-flex justify-content-evenly">
+                <button
+                    type="button"
+                    class="btn btn-primary mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#createProjectModal">
+                    Create Project
+                </button>
             </div>
+
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+              <span class="lead">Error:<span>
+              <br>
+              <small>{{ error }}</small>
+            </div>
+            {% endif %}
 
             <hr class="m-0 mb-2 border-2 border-primary">
 
-        <table class="w-75 mx-auto table table-sm table-striped">
-            <thead>
-                <tr>
-                    <th class="ps-2 fs-5" scope="col">id</th>
-                    <th class="fs-5" scope="col">Name</th>
-                    <th class="fs-5" scope="col">Version</th>
-                    <th class="fs-5" scope="col">State</th>
-                    <th class="fs-5" scope="col">Edit</th>
-                </tr>
-            </thead>
+            <table class="w-75 mx-auto mb-0 table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th class="ps-2 fs-5" scope="col">id</th>
+                        <th class="fs-5" scope="col">Name</th>
+                        <th class="fs-5" scope="col">Version</th>
+                        <th class="fs-5" scope="col">State</th>
+                        <th class="fs-5" scope="col">Edit</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% for project in projects %}
-                <tr>
-                    <td
-                        class="ps-2 overflow-hidden text-truncate"
-                        style="max-width: 5rem;">
-                        {{ project.id }}
-                    </td>
-                    <td class="ps-2">{{ project.name }}</td>
-                    <td class="ps-2">0.1</td>
-                    <td class="ps-2">{{ project.state }}</td>
-                    <td class="ps-2">
-                        <a href="/admin/center/projects/{{ project.id|url_encode }}"><i class="bi bi-pencil-square"></i></a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <td colspan="5">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center my-1">
-                                <li class="page-item"><a class="page-link py-1" href="#"><i class="bi bi-chevron-left"></i></a></li>
-                                <li class="page-item"><a class="page-link py-1" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link py-1" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link py-1" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link py-1" href="#"><i class="bi bi-chevron-right"></i></a></li>
-                                </ul>
-                            </nav>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td
+                            class="ps-2 overflow-hidden text-truncate border-start"
+                            style="max-width: 5rem;">
+                            {{ project.id }}
+                        </td>
+                        <td class="ps-2">{{ project.name }}</td>
+                        <td class="ps-2">0.1</td>
+                        <td class="ps-2">{{ project.state }}</td>
+                        <td class="ps-2 border-end">
+                            <a href="/admin/center/projects/{{ project.id|url_encode }}"><i class="bi bi-pencil-square"></i></a>
                         </td>
                     </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    {% include 'partials/pagination.html' %}
                 </tfoot>
             </table>
+
         </div>
     </div>
 </section>
+
+{% include 'pages/admin/center/projects/partials/index.create.html' %}
 
 {% endblock %}
