@@ -1,9 +1,17 @@
 name: containerization
 
 on:
+  release:
+    types: [created]
+
   push:
-    branches:
-      - "actions"
+    tags:
+      - 'v*'
+
+# on:
+#   push:
+#     branches:
+#       - "actions"
 
 jobs:
   docker:
