@@ -33,8 +33,12 @@ class ProjectsRepository
      *
      * @return Project[]
      */
-    public function where($statement)
+    public function where($statement, string $fetch = '')
     {
+        if ($fetch !== '') {
+            return $this->surreal->select('*')->tables('projects')->where($statement)->fetch($fetch)->exec()[0]->result;
+        }
+
         return $this->surreal->select('*')->tables('projects')->where($statement)->exec()[0]->result;
     }
 
@@ -46,7 +50,16 @@ class ProjectsRepository
      *
      * @return Project
      */
-    public function findBy(string $column, string $value)
+    public function findBy(string $column, string $value, string $fetch = '')
+    {
+        if ($fetch !== '') {
+            return $this->surreal->select('*')->tables('projects')->where("$column is $value")->fetch($fetch)->exec()[0]->result;
+        }
+
+        return $this->surreal->select('*')->tables('projects')->where("$column is $value")->exec()[0]->result;
+    }
+
+    public function create(string $name, string $center_name, ?array $keys)
     {
         return $this->surreal->select('*')->tables('projects')->where("$column = $value")->exec()[0]->result;
     }
