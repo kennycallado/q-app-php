@@ -10,7 +10,15 @@ class CentersController extends Render
 {
     public function settings(Auth $auth)
     {
-        echo $this->view->render('pages/admin/center/settings.html', ['title' => 'Settings']);
+        $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+        unset($_SESSION['error']);
+
+        $prepare = [
+            'title' => 'Settings',
+            'error' => $error
+        ];
+
+        echo $this->view->render('pages/admin/center/settings.html', $prepare);
         return;
     }
 
