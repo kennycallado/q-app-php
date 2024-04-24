@@ -8,10 +8,9 @@ on:
     tags:
       - 'v*'
 
-# on:
-#   push:
-#     branches:
-#       - "actions"
+    # TESTING
+    branches:
+      - "actions"
 
 jobs:
   docker:
@@ -19,6 +18,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: no
+          args: --profile --ignore-platform-reqs --optimize-autoloader
 
       - name: Set env
         run: |
