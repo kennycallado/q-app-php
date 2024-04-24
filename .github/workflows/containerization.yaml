@@ -9,8 +9,8 @@ on:
       - 'v*'
 
     # TESTING
-    branches:
-      - "actions"
+    # branches:
+    #   - "actions"
 
 jobs:
   docker:
