@@ -7,22 +7,23 @@ PATH="${PATH}:${HOME}/.local/bin"
 echo "Installing needed tools"
 
 # ripgrep
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_14.0.0_amd64.deb
-dpkg -i ripgrep_14.0.0_amd64.deb
-rm ripgrep_14.0.0_amd64.deb
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+sudo dpkg -i ripgrep_13.0.0_amd64.deb
+rm ripgrep_13.0.0_amd64.deb
 
 # surrealdb cli
-bash <(curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com) --version 1.3.1
+bash <(curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com) --version v1.3.1
 mv ${HOME}/.surrealdb/surreal ${HOME}/.local/bin/surreal
 
 echo "Installing LunarVim"
+
 # neovim
 bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
 
 # lunarvim
 LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh) --no-install-dependencies -y
 
-# lvim config
+# lunarvim config
 ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
 
 exit 0
