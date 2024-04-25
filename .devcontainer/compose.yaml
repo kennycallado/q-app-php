@@ -1,0 +1,44 @@
+services:
+  devcontainer:
+    build: 
+      context: .
+      dockerfile: Containerfile
+    volumes:
+      - ../..:/workspaces:cached
+    network_mode: service:db
+    command: sleep infinity
+
+  app:
+    image: kennycallado/q-app-php:latest
+    network_mode: service:db
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: http://localhost:8000/sql
+      AUTH_URL: http://localhost:9000/auth
+    volumes:
+      - ..:/var/www/html
+
+  db:
+    image: kennycallado/q-api-store-demo:latest
+    command:
+      - -A
+      - --no-banner
+      - --user=root
+      - --pass=root
+      - --bind=0.0.0.0:8000
+
+  super:
+    image: kennycallado/q-api-super:latest
+    restart: unless-stopped
+    network_mode: service:db
+    environment:
+      DB_HOST: 'localhost:8000'
+
+  auth:
+    image: kennycallado/q-api-auth:latest
+    restart: unless-stopped
+    network_mode: service:db
+    environment:
+      ROCKET_PORT: 9000
+      ROCKET_DATABASES: '{store={host="localhost", port=8000, username="root", password="root"}}'
+      ROCKET_SECRET_KEY: 'xdOXN1pEDSi3TYupqi7jOtXwaa3rOfClDPuW3HzMdkU='
