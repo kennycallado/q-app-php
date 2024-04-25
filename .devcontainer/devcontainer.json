@@ -1,4 +1,5 @@
 {
+  "name": "q-app-php",
   "service": "devcontainer",
   "dockerComposeFile": "compose.yaml",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
