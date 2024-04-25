@@ -1,8 +1,29 @@
 {% extends 'layouts/main.html' %}
 
 {% block body %}
+<header class="w-50 mx-auto mb-2 bg-body-tertiary text-center rounded overflow-hidden">
+    <h1 class="p-2">Notifications</h1>
+</header>
 
-<h1>hola mundo</h1>
-<p>{{ "now" | date() | format_datetime(locale='es-ES') }}</p>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Notification 1</h4>
+            <p>This is the first notification.</p>
+            <p class="text-end mb-0">{{ "now" | date() | format_datetime(locale='es-ES') }}</p>
+        </div>
 
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Notification 2</h4>
+            <p>This is the second notification.</p>
+            <p class="text-end mb-0">{{ "now" | date() | format_datetime(locale='es-ES') }}</p>
+        </div>
+
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Notification 3</h4>
+            <p>This is the third notification.</p>
+            <p class="text-end mb-0">{{ "now" | date() | format_datetime(locale='es-ES') }}</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
