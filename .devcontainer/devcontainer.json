@@ -1,0 +1,18 @@
+{
+  "service": "devcontainer",
+  "dockerComposeFile": "compose.yaml",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "forwardPorts": [],
+  "portsAttributes": {},
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+        "installDockerBuildx": false
+    }
+  },
+"customizations": {
+    "vscode": {
+      "extensions": []
+    },
+  },
+}
