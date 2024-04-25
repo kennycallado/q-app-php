@@ -35,7 +35,7 @@ Accept: application/json
 NS: global
 DB: main
 
-### get projects
+### update user project
 POST http://localhost:8000/sql
 Accept: application/json
 Authorization: Basic cm9vdDpyb290
