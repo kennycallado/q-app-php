@@ -1,8 +1,13 @@
 
 ## TODO:
 
-- [ ] build: unable to create arm image with intl
+- [ ] aside: resources should be an accordion
+- [ ] sleep: some actions that involves super needs some delay...
+
+- [X] build: there is no vendor, should execute composer
+- [~] build: unable to create arm image with intl
   - needs qemu-user-static but don't know how to get it in nixos
+  - [X] use github actions as work around
 
 - [X] parti: details shows info by tabs
   - papers
