@@ -1,6 +1,6 @@
 services:
   devcontainer:
-    image: mcr.microsoft.com/devcontainers/base:alpine
+    image: mcr.microsoft.com/devcontainers/base:debian
     volumes:
       - ../..:/workspaces:cached
     network_mode: service:db

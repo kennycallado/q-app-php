@@ -3,4 +3,23 @@
   "dockerComposeFile": "compose.yaml",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "postCreateCommand": ".devcontainer/post-create.sh",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": { "label": "database" }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "installDockerBuildx": false
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscodevim.vim",
+        "humao.rest-client",
+        "surrealdb.surrealql"
+      ]
+    }
+  }
 }
