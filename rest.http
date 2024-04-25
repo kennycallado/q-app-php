@@ -13,7 +13,7 @@ Content-type: application/json
 }
 
 ### login
-POST http://localhost:8080/auth/login
+POST http://localhost:9000/auth/login
 Accept: application/json
 Content-type: application/json
 
@@ -42,5 +42,5 @@ Authorization: Basic cm9vdDpyb290
 NS: global
 DB: main
 
-SELECT * FROM users;
+UPDATE users SET project = projects:g1 WHERE username = 'user';
 # }}}
