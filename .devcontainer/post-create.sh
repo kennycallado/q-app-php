@@ -9,9 +9,11 @@ echo "Installing needed tools"
 # ripgrep
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_14.0.0_amd64.deb
 dpkg -i ripgrep_14.0.0_amd64.deb
+rm ripgrep_14.0.0_amd64.deb
 
 # surrealdb cli
-curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
+bash <(curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com) --version 1.3.1
+mv ${HOME}/.surrealdb/surreal ${HOME}/.local/bin/surreal
 
 echo "Installing LunarVim"
 # neovim
