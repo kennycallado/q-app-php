@@ -165,7 +165,7 @@ lvim.plugins = {
   },
   {
     "rest-nvim/rest.nvim",
-    version = "v1.0.0",
+    version = "v1.2.1",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("rest-nvim").setup({
