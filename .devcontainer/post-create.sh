@@ -7,9 +7,9 @@ PATH="${PATH}:${HOME}/.local/bin"
 echo "Installing needed tools"
 
 # ripgrep
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
-sudo dpkg -i ripgrep_13.0.0_amd64.deb
-rm ripgrep_13.0.0_amd64.deb
+# curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+# sudo dpkg -i ripgrep_13.0.0_amd64.deb
+# rm ripgrep_13.0.0_amd64.deb
 
 # surrealdb cli
 bash <(curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com) --version v1.3.1

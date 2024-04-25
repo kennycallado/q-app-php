@@ -1,6 +1,8 @@
 services:
   devcontainer:
-    image: mcr.microsoft.com/devcontainers/base:debian
+    build: 
+      context: .
+      dockerfile: Containerfile
     volumes:
       - ../..:/workspaces:cached
     network_mode: service:db

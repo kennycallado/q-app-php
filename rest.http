@@ -1,0 +1,46 @@
+# {{{ auth
+### health
+GET http://localhost:9000/health
+
+### signup
+POST http://localhost:9000/auth/signup
+Accept: application/json
+Content-type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+### login
+POST http://localhost:8080/auth/login
+Accept: application/json
+Content-type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+# }}}
+
+# {{{ db
+### health
+GET http://localhost:8000/health
+Accept: application/json
+
+### get projects
+GET http://root:root@localhost:8000/key/projects
+Accept: application/json
+NS: global
+DB: main
+
+### get projects
+POST http://localhost:8000/sql
+Accept: application/json
+Authorization: Basic cm9vdDpyb290
+NS: global
+DB: main
+
+SELECT * FROM users;
+# }}}
