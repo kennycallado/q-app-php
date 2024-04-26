@@ -1,7 +1,7 @@
 {
   "name": "q-app-php",
   "service": "devcontainer",
-  "workspaceFolder": "/workspaces",
+  "workspaceFolder": "/workspace",
   "dockerComposeFile": "compose.yaml",
 
   "userEnvProbe": "loginShell",
