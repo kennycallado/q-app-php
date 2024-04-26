@@ -21,6 +21,6 @@ echo "Installing LunarVim"
 # lunarvim config
 # ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
 
-alias surreal="docker exec -it q-app-php_devcontainer-db-1 /surreal"
+# alias surreal="docker exec -it q-app-php_devcontainer-db-1 /surreal"
 
 exit 0

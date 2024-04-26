@@ -30,6 +30,9 @@
             ++ (if extra then [ pkgs.nodejs_18 pkgs.gh ] else [ ]);
 
             shellHook = ''
+              #
+              echo alias surreal=\"docker exec -it q-app-php_devcontainer-db-1 /surreal\" >> $HOME/.bashrc
+
               # lvim setup
               mkdir -p "$HOME/.config/lvim"
               ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
