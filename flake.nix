@@ -30,7 +30,14 @@
             ++ (if extra then [ pkgs.nodejs_18 ] else [ ]);
 
             shellHook = ''
-              PATH="$PATH:$HOME/.local/bin"
+              # PATH="$PATH:$HOME/.local/bin"
+
+              # some useful aliases
+              alias surreal="docker exec -it q-app-php_devcontainer-db_1 /surreal"
+
+              # lvim setup
+              mkdir -p "$HOME/.config/lvim"
+              ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
 
               echo "ready to rock! 🚀"
             '';

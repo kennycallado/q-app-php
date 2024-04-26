@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.config/lvim"
+# mkdir -p "${HOME}/.local/bin"
+# mkdir -p "${HOME}/.config/lvim"
 # PATH="${PATH}:${HOME}/.local/bin"
 
 echo "Installing needed tools"
@@ -19,6 +19,6 @@ echo "Installing LunarVim"
 # LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh) --no-install-dependencies -y
 
 # lunarvim config
-ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
+# ln -sf $PWD/.devcontainer/lvim-config.lua $HOME/.config/lvim/config.lua && set +x
 
 exit 0
