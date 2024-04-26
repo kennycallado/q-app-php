@@ -1,12 +1,16 @@
 services:
   devcontainer:
-    build: 
-      context: .
-      dockerfile: Containerfile
+    build:
+      context: ../
+      dockerfile: .devcontainer/Containerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
     volumes:
-      - ../..:/workspaces:cached
-    network_mode: service:db
-    command: sleep infinity
+      - ..:/workspace:cached
+      - nix:/nix
+    security_opt:
+      - label:disable
 
   app:
     image: kennycallado/q-app-php:latest
