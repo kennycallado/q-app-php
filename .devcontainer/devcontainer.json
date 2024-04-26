@@ -24,10 +24,6 @@
     "8000": { "label": "database" }
   },
 
-  "containerEnv": {
-    "PRELOAD_EXTENSIONS": "arrterian.nix-env-selector"
-  },
-
   "customizations": {
     "vscode": {
       "extensions": [
