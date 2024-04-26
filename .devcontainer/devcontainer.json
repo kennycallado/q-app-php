@@ -1,21 +1,33 @@
 {
   "name": "q-app-php",
   "service": "devcontainer",
+  "workspaceFolder": "/workspaces",
   "dockerComposeFile": "compose.yaml",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "postCreateCommand": ".devcontainer/post-create.sh",
-  "forwardPorts": [80, 9000, 8000],
-  "portsAttributes": {
-    "80": { "label": "app" },
-    "9000": { "label": "auth" },
-    "8000": { "label": "database" }
-  },
+
+  "userEnvProbe": "loginShell",
+  "updateRemoteUserUID": false,
+
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
       "installDockerBuildx": false
     }
   },
+
+  "onCreateCommand": "nix-shell --command 'echo done building nix dev environment'",
+  "postCreateCommand": ".devcontainer/post-create.sh",
+
+  "forwardPorts": [80, 9000, 8000],
+  "portsAttributes": {
+    "80": { "label": "app" },
+    "9000": { "label": "auth" },
+    "8000": { "label": "database" }
+  },
+
+  "containerEnv": {
+    "PRELOAD_EXTENSIONS": "arrterian.nix-env-selector"
+  },
+
   "customizations": {
     "vscode": {
       "extensions": [
