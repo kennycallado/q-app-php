@@ -27,13 +27,14 @@
               php82Packages.composer
             ]
             ++ (if altEditor then [ pkgs.neovim pkgs.lunarvim ] else [ ])
-            ++ (if extra then [ pkgs.nodejs_18 ] else [ ]);
+            ++ (if extra then [ pkgs.nodejs_18 pkgs.gh ] else [ ]);
 
             shellHook = ''
               # PATH="$PATH:$HOME/.local/bin"
 
               # some useful aliases
-              alias surreal="docker exec -it q-app-php_devcontainer-db_1 /surreal"
+              alias ll="ls -la"
+              alias surreal="docker exec -it q-app-php_devcontainer-db-1 /surreal"
 
               # lvim setup
               mkdir -p "$HOME/.config/lvim"
