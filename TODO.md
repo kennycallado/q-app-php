@@ -1,7 +1,11 @@
 
 ## TODO:
 
-- [ ] aside: resources should be an accordion
+- [ ] certs: for https when condespaces
+  - [research](https://github.com/BirgerK/docker-apache-letsencrypt)
+- [ ] routes: ?? admin/centers to centers
+
+- [X] aside: resources should be an accordion
 - [ ] sleep: some actions that involves super needs some delay...
 
 - [X] build: there is no vendor, should execute composer
