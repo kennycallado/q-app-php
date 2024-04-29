@@ -90,6 +90,14 @@ class Dispatcher
         return;
     }
 
+    private function str_replace_once( $needle, $replace, $haystack )
+    {
+        if ( ( $pos = strpos( $haystack, $needle ) ) === false )
+            return $haystack;
+        
+        return substr_replace( $haystack, $replace, $pos, strlen( $needle ) );
+    }
+
     private function dispatch()
     {
         $method = $this->currentRequest->getMethod();
@@ -98,7 +106,7 @@ class Dispatcher
 
         if (isset($this->routeList['includes'][$currentRoute])) {
             $jsonFile = $this->routeList['includes'][$currentRoute];
-            $uri = str_replace($currentRoute, '', $uri);
+            $uri = $this->str_replace_once($currentRoute, '', $uri);
             $uri = ($uri === '') ? '/' : $uri;
             $currentRoute = '/';
 
