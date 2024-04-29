@@ -1,0 +1,14 @@
+{
+  "GET": {
+    "/": {
+      "controller": "Entities\\EventsController",
+      "action": "index",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\EventsController",
+      "action": "show",
+      "protected": true
+    }
+  }
+}
