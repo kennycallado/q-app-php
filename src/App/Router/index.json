@@ -1,6 +1,5 @@
 {
   "includes": {
-    "/center": "routes/center.json",
     "/user": "routes/user.json",
     "/admin": "routes/admin.json",
     "/messages": "routes/messages.json"
