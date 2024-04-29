@@ -1,0 +1,66 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<header class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2 text-capitalize"><u>{{ title }}</u></h1>
+</header>
+
+<section aria-label="Events">
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <button class="btn btn-primary">Create event</button>
+            </div>
+
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <table class="w-75 mx-auto mb-0 table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th class="ps-2 fs-5" scope="col">id</th>
+                        <th class="fs-5" scope="col">Active</th>
+                        <th class="fs-5" scope="col">Status</th>
+                        <th class="fs-5" scope="col">Script</th>
+                        <th class="fs-5" scope="col">Edit</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td
+                            class="ps-2 overflow-hidden text-truncate border-start"
+                            style="max-width: 7rem;">
+                            {{ event.id }}
+                        </td>
+
+                        <td class="ps-2">
+                            {% if event.active %}
+                            <!-- <i class="bi bi-check2"></i> -->
+                            <i class="ms-2 text-success bi bi-check-square"></i>
+                            {% else %}
+                            <!-- <i class="bi bi-x-lg"></i> -->
+                            <i class="ms-2 text-danger bi bi-x-square"></i>
+                            {% endif %}
+                        </td>
+
+                        <td class="ps-2">
+                            {{ event.status }}
+                        </td>
+
+                        <td class="ps-2">{{ event.script }}</td>
+
+                        <td class="ps-2 border-end"><a href="/events/{{event.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    {% include 'partials/pagination.html' %}
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
