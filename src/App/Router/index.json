@@ -2,7 +2,7 @@
   "includes": {
     "/user": "routes/user.json",
     "/admin": "routes/admin.json",
-    "/center": "routes/center.json",
+    "/events": "routes/events.json",
     "/messages": "routes/messages.json"
   },
   "GET": {
