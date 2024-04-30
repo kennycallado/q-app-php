@@ -12,7 +12,6 @@
     }
   },
 
-  "onCreateCommand": "nix-shell --command 'echo Nix dev environment done!' --experimental-features 'nix-command flakes'",
   "postCreateCommand": ".devcontainer/post-create.sh",
 
   "forwardPorts": [80, 9000, 8000],
