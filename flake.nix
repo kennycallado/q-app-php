@@ -20,7 +20,10 @@
           in
           pkgs.mkShell {
 
-            packages = with pkgs; [ ];
+            packages = with pkgs; [
+              php
+              php82Packages.composer
+            ];
 
             shellHook = ''
               # {{{ load .env file
