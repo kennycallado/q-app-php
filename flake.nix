@@ -29,13 +29,11 @@
               gh
 
               # alternative editor dependencies
-              # neovim
-              # lunarvim
+              neovim
+              lunarvim
             ];
 
             shellHook = ''
-              PATH="$PATH:$HOME/.local/bin"
-
               # {{{ load .env file
               if [ -f .env ]; then
                 export $(cat .env | xargs)
