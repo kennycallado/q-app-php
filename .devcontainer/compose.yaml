@@ -47,3 +47,6 @@ services:
       ROCKET_PORT: 9000
       ROCKET_DATABASES: '{store={host="localhost", port=8000, username="root", password="root"}}'
       ROCKET_SECRET_KEY: 'xdOXN1pEDSi3TYupqi7jOtXwaa3rOfClDPuW3HzMdkU='
+
+volumes:
+  nix:
