@@ -5,16 +5,16 @@ class IntervUser
 {
     private string $id;
     private Role $role;
-    private bool $active;
-    private bool $completed;
+    private IntervUserState $state;
+    // private bool $active;
+    // private bool $completed;
     private array $scores;
 
-    public function __construct(string $id, Role|string $role, bool $active = false, bool $completed = false)
+    public function __construct(string $id, Role|string $role, IntervUserState|string $state)
     {
         $this->id = $id;
         $this->role = $role instanceof Role ? $role : Role::from($role);
-        $this->active = $active;
-        $this->completed = $completed;
+        $this->state = $state instanceof IntervUserState ? $state : IntervUserState::from($state);
     }
 
     public function __get($name)

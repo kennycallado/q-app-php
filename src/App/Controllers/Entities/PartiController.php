@@ -56,15 +56,19 @@ class PartiController extends Render
         array_map(function (mixed $user) use ($i_users) {
             foreach ($i_users as $i_user) {
                 if ($i_user->id == $user->id) {
-                    $user->active = $i_user->active;
-                    $user->completed = $i_user->completed;
+                    $user->state = $i_user->state;
 
                     break;
                 }
             }
         }, $users);
 
-        echo $this->view->render('pages/admin/participants/index.html', ['title' => 'Participants', 'users' => $users]);
+        $prepare = [
+            'title' => 'Participants',
+            'users' => $users
+        ];
+
+        echo $this->view->render('pages/admin/participants/index.html', $prepare);
         return;
     }
 
@@ -86,7 +90,7 @@ class PartiController extends Render
         $user = $u_repo->findBy('id', $params['id'])[0];
 
         // get user active and scores
-        $sql = "SELECT active, completed FROM ONLY $user->id LIMIT 1;";
+        $sql = "SELECT state FROM ONLY $user->id LIMIT 1;";
         $sql .= "SELECT * FROM scores WHERE user = $user->id ORDER BY created DESC;";
         $sql .= "SELECT id, created, completed, resource.ref, resource.id FROM papers WHERE user = $user->id ORDER BY created DESC;";
 
@@ -102,11 +106,10 @@ class PartiController extends Render
 
         $papers = $res[--$num_rows]->result;
         $scores = $res[--$num_rows]->result;
-        $mix = $res[--$num_rows]->result;
+        $u_state = $res[--$num_rows]->result;
 
         /** @var mixed $user */
-        $user->completed = $mix->completed ?? false;
-        $user->active = $mix->active ?? false;
+        $user->state = $u_state->state ?? false;
         $user->scores = $scores ?? [];
         $user->papers = $papers ?? [];
 
