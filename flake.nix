@@ -24,9 +24,13 @@
               php82
               php82Packages.composer
 
-              # other tools
+              # dev tools
               # surrealdb
               gh
+
+              # alternative editor
+              neovim
+              lunarvim
             ];
 
             shellHook = ''
