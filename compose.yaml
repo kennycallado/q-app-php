@@ -1,7 +1,8 @@
 version: "3.8"
 
 services:
-  web-server:
+  app:
+    container_name: app
     image: kennycallado/q-app-php:latest
     # build:
     #   context: .
@@ -15,7 +16,7 @@ services:
     volumes:
       - .:/var/www/html
 
-  db-server:
+  db:
     container_name: surrealdb
     image: kennycallado/q-api-store-demo:latest
     pull_policy: "always"
@@ -30,7 +31,14 @@ services:
       - --pass=root
       - --bind=0.0.0.0:8000
 
-  auth-server:
+  super:
+    container_name: super
+    image: kennycallado/q-api-super:latest
+    pull_policy: "always"
+    environment:
+      DB_HOST: ${DB_HOST}:${DB_PORT}
+
+  auth:
     container_name: auth
     image: kennycallado/q-api-auth:latest
     pull_policy: "always"
@@ -40,10 +48,3 @@ services:
       ROCKET_PORT: 9000
       ROCKET_DATABASES: '{store={host="surrealdb", port=8000, username="root", password="root"}}'
       ROCKET_SECRET_KEY: 'xdOXN1pEDSi3TYupqi7jOtXwaa3rOfClDPuW3HzMdkU='
-
-  super:
-    container_name: super
-    image: kennycallado/q-api-super:latest
-    pull_policy: "always"
-    environment:
-      DB_HOST: ${DB_HOST}
