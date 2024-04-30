@@ -20,10 +20,7 @@
           in
           pkgs.mkShell {
 
-            packages = with pkgs; [
-              php82
-              php82Packages.composer
-            ];
+            packages = with pkgs; [ ];
 
             shellHook = ''
               # {{{ load .env file
@@ -91,7 +88,7 @@
               # {{{ install composer dependencies
               if [ -f composer.json ]; then
                 echo -e "\033[0;33m===\033[0m Installing composer dependencies \033[0;33m===\033[0m"
-                # composer install
+                composer install
               fi
               # }}}
 
