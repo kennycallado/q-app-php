@@ -47,7 +47,10 @@
                 echo -e "\033[0;31m===\033[0m Warning \033[0;31m===\033[0m"
                 echo "Neither docker nor podman is installed"
               else
-                alias surreal="$CONTAINER_BIN exec -it $DB_HOST /surreal"
+                # alias surreal="$CONTAINER_BIN exec -it $DB_HOST /surreal"
+                surreal() {
+                  $CONTAINER_BIN exec -it $DB_HOST /surreal $@
+                }
               fi
               # }}}
 
