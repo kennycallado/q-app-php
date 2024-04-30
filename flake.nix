@@ -24,9 +24,6 @@
               php82
               php82Packages.composer
 
-              # alternative editor
-              neovim
-
               # other tools
               # surrealdb
               gh
