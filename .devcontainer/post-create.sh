@@ -11,6 +11,10 @@ PATH="$PATH:$HOME/.local/bin"
 # mv ${HOME}/.surrealdb/surreal ${HOME}/.local/bin/surreal
 
 # echo "Installing LunarVim"
+sudo apt-get update && export DEBIAN_FRONTEND=noninteractive && \
+  apt-get -y install --no-install-recommends \
+  fd-find
+
 
 # neovim and lunarvim
 bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release)
