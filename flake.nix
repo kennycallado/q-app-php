@@ -29,8 +29,8 @@
               gh
 
               # alternative editor dependencies
-              neovim
-              lunarvim
+              # neovim
+              # lunarvim
             ];
 
             shellHook = ''
