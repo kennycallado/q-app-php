@@ -28,7 +28,10 @@
               # surrealdb
               gh
 
-              # alternative editor
+              # alternative editor dependencies
+              fd
+              make
+              ripgrep
               # neovim
               # lunarvim
             ];
