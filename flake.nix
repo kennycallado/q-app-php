@@ -30,7 +30,6 @@
 
               # alternative editor dependencies
               fd
-              make
               ripgrep
               # neovim
               # lunarvim
