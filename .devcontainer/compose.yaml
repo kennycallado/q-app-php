@@ -14,6 +14,7 @@ services:
       - label:disable
 
   app:
+    container_name: app
     image: kennycallado/q-app-php:latest
     network_mode: service:db
     environment:
@@ -24,6 +25,7 @@ services:
       - ..:/var/www/html
 
   db:
+    container_name: surrealdb
     image: kennycallado/q-api-store-demo:latest
     command:
       - -A
@@ -33,6 +35,7 @@ services:
       - --bind=0.0.0.0:8000
 
   super:
+    container_name: super
     image: kennycallado/q-api-super:latest
     restart: unless-stopped
     network_mode: service:db
@@ -40,6 +43,7 @@ services:
       DB_HOST: 'localhost:8000'
 
   auth:
+    container_name: auth
     image: kennycallado/q-api-auth:latest
     restart: unless-stopped
     network_mode: service:db
