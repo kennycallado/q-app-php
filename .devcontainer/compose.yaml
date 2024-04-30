@@ -1,14 +1,29 @@
 services:
   devcontainer:
-    build: 
+    build:
       context: .
       dockerfile: Containerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
     volumes:
-      - ../..:/workspaces:cached
+      - ../..:/workspace:cached
+      - nix:/nix
     network_mode: service:db
-    command: sleep infinity
+    security_opt:
+      - label:disable
+
+  # devcontainer:
+  #   build: 
+  #     context: .
+  #     dockerfile: Containerfile
+  #   volumes:
+  #     - ../..:/workspaces:cached
+  #   network_mode: service:db
+  #   command: sleep infinity
 
   app:
+    container_name: app
     image: kennycallado/q-app-php:latest
     network_mode: service:db
     environment:
@@ -19,6 +34,7 @@ services:
       - ..:/var/www/html
 
   db:
+    container_name: surrealdb
     image: kennycallado/q-api-store-demo:latest
     command:
       - -A
@@ -28,6 +44,7 @@ services:
       - --bind=0.0.0.0:8000
 
   super:
+    container_name: super
     image: kennycallado/q-api-super:latest
     restart: unless-stopped
     network_mode: service:db
@@ -35,6 +52,7 @@ services:
       DB_HOST: 'localhost:8000'
 
   auth:
+    container_name: auth
     image: kennycallado/q-api-auth:latest
     restart: unless-stopped
     network_mode: service:db
