@@ -13,15 +13,6 @@ services:
     security_opt:
       - label:disable
 
-  # devcontainer:
-  #   build: 
-  #     context: .
-  #     dockerfile: Containerfile
-  #   volumes:
-  #     - ../..:/workspaces:cached
-  #   network_mode: service:db
-  #   command: sleep infinity
-
   app:
     image: kennycallado/q-app-php:latest
     network_mode: service:db
