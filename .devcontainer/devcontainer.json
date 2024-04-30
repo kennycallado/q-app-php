@@ -27,7 +27,9 @@
     "vscode": {
       "extensions": [
         "bmewburn.vscode-intelephense-client",
+        "arrterian.nix-env-selector",
         "surrealdb.surrealql",
+        "jnoortheen.nix-ide",
         "humao.rest-client",
         "lkrms.pretty-php",
         "GitHub.copilot"
