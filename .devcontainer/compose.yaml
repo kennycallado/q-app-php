@@ -11,6 +11,7 @@ services:
   app:
     container_name: app
     image: kennycallado/q-app-php:latest
+    pull_policy: always
     network_mode: service:db
     environment:
       ENVIRONMENT: development
@@ -22,6 +23,7 @@ services:
   db:
     container_name: surrealdb
     image: kennycallado/q-api-store-demo:latest
+    pull_policy: always
     command:
       - -A
       - --no-banner
@@ -32,6 +34,7 @@ services:
   super:
     container_name: super
     image: kennycallado/q-api-super:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: service:db
     environment:
@@ -40,6 +43,7 @@ services:
   auth:
     container_name: auth
     image: kennycallado/q-api-auth:latest
+    pull_policy: always
     restart: unless-stopped
     network_mode: service:db
     environment:
