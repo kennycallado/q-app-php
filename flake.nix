@@ -26,10 +26,10 @@
             ];
 
             shellHook = ''
-              # {{{ load .env file
-              if [ -f .env ]; then
-                export $(cat .env | xargs)
-              fi
+              # {{{ load .env file # leave it for php
+              # if [ -f .env ]; then
+              #   export $(cat .env | xargs)
+              # fi
               # }}}
               
               # {{{ set up surreal alias through docker or podman
