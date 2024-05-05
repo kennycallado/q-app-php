@@ -6,8 +6,6 @@ class IntervUser
     private string $id;
     private Role $role;
     private IntervUserState $state;
-    // private bool $active;
-    // private bool $completed;
     private array $scores;
 
     public function __construct(string $id, Role|string $role, IntervUserState|string $state)

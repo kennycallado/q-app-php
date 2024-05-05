@@ -90,12 +90,13 @@ class Dispatcher
         return;
     }
 
-    private function str_replace_once( $needle, $replace, $haystack )
+    private function str_replace_once($needle, $replace, $haystack)
     {
-        if ( ( $pos = strpos( $haystack, $needle ) ) === false )
+        if (($pos = strpos($haystack, $needle)) === false) {
             return $haystack;
-        
-        return substr_replace( $haystack, $replace, $pos, strlen( $needle ) );
+        }
+
+        return substr_replace($haystack, $replace, $pos, strlen($needle));
     }
 
     private function dispatch()

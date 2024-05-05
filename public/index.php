@@ -9,8 +9,8 @@ use Src\Core\RouteCollection;
 
 /** Load environment variables */
 if (!isset($_ENV['ENVIRONMENT']) || strtolower($_ENV['ENVIRONMENT']) !== 'production') {
-    if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js)$/', $_SERVER["REQUEST_URI"])) {
-        handle_statics($_SERVER["REQUEST_URI"]);
+    if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js)$/', $_SERVER['REQUEST_URI'])) {
+        handle_statics($_SERVER['REQUEST_URI']);
         return;
     }
 
@@ -38,12 +38,13 @@ $request = new Request();
 $routes = new RouteCollection();
 $dispatcher = new Dispatcher($request, $routes);
 
-function handle_statics($temp_uri) {
+function handle_statics($temp_uri)
+{
     if (preg_match('/^\/public\/assets\/bootstrap\/(.+)$/', $temp_uri)) {
-        $temp_path = str_replace("/public/assets/bootstrap/", "", $temp_uri);
+        $temp_path = str_replace('/public/assets/bootstrap/', '', $temp_uri);
 
         set_headers($temp_uri);
-    
+
         readfile(__DIR__ . '/../vendor/twbs/bootstrap/' . $temp_path);
         return;
     } else {
@@ -54,7 +55,8 @@ function handle_statics($temp_uri) {
     }
 }
 
-function set_headers($temp_uri) {
+function set_headers($temp_uri)
+{
     switch (true) {
         case preg_match('/\.(?:css)$/', $temp_uri):
             header('Content-type: text/css');
