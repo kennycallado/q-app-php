@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51f528982a82520050d03d32f25794ac",
+    "content-hash": "3a37ca5ed15f68a3a3d35bd7f7cc9172",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -145,16 +145,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.4.0",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "7c3aff79d10325257a001fcf92d991f24fc967cf"
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/7c3aff79d10325257a001fcf92d991f24fc967cf",
-                "reference": "7c3aff79d10325257a001fcf92d991f24fc967cf",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.4-dev"
+                    "dev-main": "3.5-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -192,7 +192,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.4.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
             },
             "funding": [
                 {
@@ -208,7 +208,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-23T14:45:45+00:00"
+            "time": "2024-04-18T09:32:20+00:00"
         },
         {
             "name": "symfony/intl",
@@ -926,16 +926,16 @@
         },
         {
             "name": "lkrms/pretty-php",
-            "version": "v0.4.56",
+            "version": "v0.4.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lkrms/pretty-php.git",
-                "reference": "b3a8bedc782ec5759d823f6af76f4e6466d3fcf8"
+                "reference": "b3ec76be2f68dff22caf224e9705cb3c5118525d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lkrms/pretty-php/zipball/b3a8bedc782ec5759d823f6af76f4e6466d3fcf8",
-                "reference": "b3a8bedc782ec5759d823f6af76f4e6466d3fcf8",
+                "url": "https://api.github.com/repos/lkrms/pretty-php/zipball/b3ec76be2f68dff22caf224e9705cb3c5118525d",
+                "reference": "b3ec76be2f68dff22caf224e9705cb3c5118525d",
                 "shasum": ""
             },
             "require": {
@@ -944,7 +944,7 @@
                 "ext-mbstring": "*",
                 "ext-tokenizer": "*",
                 "php": ">=7.4",
-                "salient/toolkit": "^0.99.10",
+                "salient/toolkit": "^0.99.16",
                 "sebastian/diff": "^4 || ^5"
             },
             "require-dev": {
@@ -980,7 +980,7 @@
                 "issues": "https://github.com/lkrms/pretty-php/issues",
                 "source": "https://github.com/lkrms/pretty-php"
             },
-            "time": "2024-03-11T14:21:56+00:00"
+            "time": "2024-04-30T14:50:26+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1954,16 +1954,16 @@
         },
         {
             "name": "salient/toolkit",
-            "version": "v0.99.15",
+            "version": "v0.99.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/salient-labs/toolkit.git",
-                "reference": "676af50308553b6cbc9bdea229ef849cce3ba930"
+                "reference": "bc6cfe6dd8340d1ede86db05b2c0c2c96eb967da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/salient-labs/toolkit/zipball/676af50308553b6cbc9bdea229ef849cce3ba930",
-                "reference": "676af50308553b6cbc9bdea229ef849cce3ba930",
+                "url": "https://api.github.com/repos/salient-labs/toolkit/zipball/bc6cfe6dd8340d1ede86db05b2c0c2c96eb967da",
+                "reference": "bc6cfe6dd8340d1ede86db05b2c0c2c96eb967da",
                 "shasum": ""
             },
             "require": {
@@ -2045,7 +2045,7 @@
                 "issues": "https://github.com/salient-labs/toolkit/issues",
                 "source": "https://github.com/salient-labs/toolkit"
             },
-            "time": "2024-04-29T10:36:51+00:00"
+            "time": "2024-05-03T15:22:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
