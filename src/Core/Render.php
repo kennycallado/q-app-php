@@ -12,7 +12,7 @@ class Render
 
     function __construct()
     {
-        $loader = new FilesystemLoader('../src/App/Views');
+        $loader = new FilesystemLoader(__DIR__ . '/../App/Views');
         $this->view = new Environment(
             $loader,
             $_ENV['ENVIRONMENT'] !== 'production' ? ['debug' => true] : []

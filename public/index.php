@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Src\Core\Dispatcher;
@@ -8,9 +8,9 @@ use Src\Core\Request;
 use Src\Core\RouteCollection;
 
 /** Load environment variables */
-if (strtolower($_ENV['ENVIRONMENT']) !== 'production') {
-    if (file_exists('../.env')) {
-        $dotenv = Dotenv::createImmutable('../');
+if (!isset($_ENV['ENVIRONMENT']) || strtolower($_ENV['ENVIRONMENT']) !== 'production') {
+    if (file_exists(__DIR__ . '/../.env')) {
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
     }
 
