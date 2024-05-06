@@ -46,8 +46,8 @@ class UsersRepository
         return $this->surreal->select('*')->tables('users')->where("$column = $value")->exec()[0]->result;
     }
 
-    public function update(User $user)
+    public function update(object $user)
     {
-        return $this->surreal->update('users')->merge($user)->exec()[0]->result;
+        return $this->surreal->update($user->id)->merge($user)->exec()[0]->result;
     }
 }

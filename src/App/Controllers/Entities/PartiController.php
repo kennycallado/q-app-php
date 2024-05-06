@@ -20,9 +20,12 @@ class PartiController extends Render
             return header('Location: /user/settings');
         }
 
+        $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+        unset($_SESSION['error']);
+
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
         $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
-        // $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
+
         $users = [];
 
         $sql = 'SELECT * FROM users;';
@@ -49,9 +52,6 @@ class PartiController extends Render
             $users = $users[0]->result;
         }
 
-        /** @var User[] */
-        // $users = $u_repo->where('project = ' . $auth->project->id . " AND role == 'parti'");
-
         // map $users to add active from i_users
         array_map(function (mixed $user) use ($i_users) {
             foreach ($i_users as $i_user) {
@@ -65,6 +65,7 @@ class PartiController extends Render
 
         $prepare = [
             'title' => 'Participants',
+            'error' => $error,
             'users' => $users
         ];
 
