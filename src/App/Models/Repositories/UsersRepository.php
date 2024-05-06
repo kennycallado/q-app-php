@@ -37,12 +37,17 @@ class UsersRepository
      * Find user by id
      *
      * @param string $column
-     * @param string $value
+     * @param $value
      *
      * @return User
      */
-    public function findBy(string $column, string $value)
+    public function findBy(string $column, $value)
     {
         return $this->surreal->select('*')->tables('users')->where("$column = $value")->exec()[0]->result;
+    }
+
+    public function update(User $user)
+    {
+        return $this->surreal->update('users')->merge($user)->exec()[0]->result;
     }
 }
