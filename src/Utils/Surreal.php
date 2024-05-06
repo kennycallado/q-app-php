@@ -428,6 +428,8 @@ class Surreal
         $response = curl_exec($curl);
         curl_close($curl);
 
+        $this->query = '';
+
         return JSON_decode($response);
     }
 }
