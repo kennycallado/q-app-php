@@ -1,0 +1,32 @@
+<div class="modal fade" id="assignPartiModal" tabindex="-1" aria-labelledby="assignPartiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="assignPartiModalLabel">Assign project</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form class="w-75 mx-auto" id="create-project" action="/admin/parti/assign" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="username" required>
+                    </div>
+
+                    <!-- <div class="d-none" id="hidden-keys"> -->
+                    <!--     <input type="hidden" name="center_name" value="{{ session.project.center }}"> -->
+                    <!-- </div> -->
+                </form>
+
+                <hr class="mt-4 border-primary">
+                <p class="my-0">Text explaining what this does!</p>
+            
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" form="create-project">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>

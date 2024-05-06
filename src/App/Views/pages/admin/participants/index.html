@@ -18,8 +18,10 @@
 
                 <button
                     type="button"
-                    class="btn btn-primary mb-2">
-                    Assign User
+                    class="btn btn-primary mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#assignPartiModal">
+                    Assign parti
                 </button>
             </div>
 
@@ -66,5 +68,7 @@
         </div>
     </div>
 </section>
+
+{% include 'pages/admin/participants/partials/index.assign.html' %}
 
 {% endblock %}

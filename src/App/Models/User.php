@@ -27,4 +27,15 @@ class User
 
         return $this->$name;
     }
+
+    public function __set($name, $value)
+    {
+        if ($name === 'role') {
+            $this->role = $value instanceof Role ? $value : Role::from($value);
+        } elseif ($name === 'project') {
+            $this->project = $value instanceof Project ? $value : (object) ['id' => $value];
+        }
+        
+        $this->$name = $value;
+    }
 }

@@ -10,9 +10,35 @@
         <div class="card-body">
 
             <p>id: {{ user.id }}</p>
-            <p>username: {{ user.username }}</p>
-            <p>state: {{ user.state }}</p>
-            <p>web_token: {{ user.webtoken ? 'true' : 'false' }}</p>
+            <p>username: <span class="lead">{{ user.username }}</span></p>
+
+            <span>Webtoken:</span>
+            {% if user.webtoken is defined %}
+            <i class="bi bi-bell text-success lead"></i>
+            {% else %}
+            <i class="bi bi-bell-slash text-warning lead"></i>
+            {% endif %}
+
+            <form class="mb-2" method="POST" action="/admin/parti/{{ user.id }}">
+                <div class="mb-3 text-start">
+                    <label for="state" class="form-label">State:</label>
+                    <select name="state" class="form-select" aria-label="Multiple select example" required>
+                        <option value="active" {{ user.state == 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="exited" {{ user.state == 'exited' ? 'selected' : '' }}>Exited</option>
+                        <option value="standby" {{ user.state == 'standby' ? 'selected' : '' }}>Standby</option>
+                        <option value="completed" {{ user.state == 'completed' ? 'selected' : '' }}>Completed</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="id" value="{{ user.id }}" required>
+                <input type="hidden" name="role" value="{{ user.role }}" required>
+                <input type="hidden" name="project" value="{{ user.project }}">
+                <input type="hidden" name="username" value="{{ user.username }}" required>
+
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-sm btn-primary ms-auto">Update</button>
+                </div>
+            </form>
 
             <hr class="m-0 mb-2 border-2 border-primary">
 

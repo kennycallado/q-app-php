@@ -36,6 +36,16 @@
       "controller": "Entities\\CentersController",
       "action": "projects_store",
       "protected": true 
+    },
+    "/parti/assign": {
+      "controller": "Entities\\PartiController",
+      "action": "assign_user",
+      "protected": true
+    },
+    "/parti/:id": {
+      "controller": "Entities\\PartiController",
+      "action": "store",
+      "protected": true
     }
   }
 }
