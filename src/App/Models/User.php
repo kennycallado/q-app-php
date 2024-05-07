@@ -35,7 +35,7 @@ class User
         } elseif ($name === 'project') {
             $this->project = $value instanceof Project ? $value : (object) ['id' => $value];
         }
-        
+
         $this->$name = $value;
     }
 }

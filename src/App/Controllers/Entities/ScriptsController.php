@@ -56,20 +56,6 @@ class ScriptsController extends Render
         return;
     }
 
-    public function store(Auth $auth, object $body)
-    {
-        if (!isset($body->name) || !isset($body->code)) {
-            echo 'Error: Missing required fields';
-            return;
-        }
-
-        echo "<pre>";
-        print_r($body);
-        echo "</pre>";
-
-        return;
-    }
-
     public function update(Auth $auth, object $body, array $params)
     {
         if (!isset($params['id']) || !isset($body->name) || !isset($body->code)) {
@@ -91,5 +77,11 @@ class ScriptsController extends Render
         }
 
         return header('Location: /scripts/' . urlencode($params['id']));
+    }
+
+    public function store(Auth $auth, object $body)
+    {
+        echo 'Unimplemented';
+        return header('Location: /scripts');
     }
 }

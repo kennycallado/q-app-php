@@ -9,31 +9,8 @@ use Src\Utils\Surreal;
 
 class PartiController extends Render
 {
-    public function store(Auth $auth, object $body, array $params)
+    public function assign_user(Auth $auth, object $body)
     {
-        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
-
-        $user = (object) [
-            'id' => $params['id'],
-            'role' => $body->role ?? 'parti',
-            'state' => $body->state,
-            'project' => $body->project,
-            'username' => $body->username,
-        ];
-
-        $sql = "UPDATE $user->id MERGE " . json_encode($user) . ";";
-        $res = $i_surreal->rawQuery($sql);
-        if (isset($res->code)) {
-            echo 'Error: ' . $res->code;
-            print_r($res);
-
-            return;
-        }
-
-        return header('Location: /admin/parti/' . urlencode($params['id']));
-    }
-
-    public function assign_user(Auth $auth, object $body) {
         $username = $body->username;
 
         $u_repo = new UsersRepository('global', 'main', $auth->gAuth);
@@ -60,7 +37,6 @@ class PartiController extends Render
         } else {
             $user->project = $auth->project->id;
             $user = $u_repo->update($user);
-
 
             // $error = (object) ['code' => '200', 'details' => 'User has been assigned to the project.'];
             // $_SESSION['error'] = json_encode($error);
@@ -182,5 +158,29 @@ class PartiController extends Render
 
         echo $this->view->render('pages/admin/participants/details.html', $prepare);
         return;
+    }
+
+    public function store(Auth $auth, object $body, array $params)
+    {
+        $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
+
+        $user = (object) [
+            'id' => $params['id'],
+            'role' => $body->role ?? 'parti',
+            'state' => $body->state,
+            'project' => $body->project,
+            'username' => $body->username,
+        ];
+
+        $sql = "UPDATE $user->id MERGE " . json_encode($user) . ';';
+        $res = $i_surreal->rawQuery($sql);
+        if (isset($res->code)) {
+            echo 'Error: ' . $res->code;
+            print_r($res);
+
+            return;
+        }
+
+        return header('Location: /admin/parti/' . urlencode($params['id']));
     }
 }
