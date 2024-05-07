@@ -1,0 +1,26 @@
+{
+  "GET": {
+    "/": {
+      "controller": "Entities\\MediaController",
+      "action": "index",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\MediaController",
+      "action": "show",
+      "protected": true
+    }
+  },
+  "POST": {
+    "/": {
+      "controller": "Entities\\MediaController",
+      "action": "store",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\MediaController",
+      "action": "update",
+      "protected": true
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<header class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2"><u>{{ title }}</u></h1>
+</header>
+
+<section aria-label="Media">
+    <div class="card">
+        <div class="card-body">
+
+            <p>id: <span class="">{{ media.id }}</span></p>
+            <p>alt: <span class="lead">{{ media.alt }}</span></p>
+            <p>type: <span class="lead">{{ media.type }}</span></p>
+            <p>url: <span class="lead">{{ media.url }}</span></p>
+
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <div class="d-flex justify-content-center">
+                {% if media.type == 'image' %}
+                <img
+                    src="{{ media.url }}"
+                    alt="{{ media.alt }}"
+                    class="img-fluid">
+                {% endif %}
+
+            {#
+                {% if media.type == 'video' %}
+                <video
+                    src="{{ media.url }}"
+                    width="300"
+                    height="560"
+                    controls>
+                </video>
+                {% endif %}
+            #}
+
+                {# {% if media.type == 'youtube' %} #}
+                {% if media.type == 'video' %}
+                <iframe
+                    src="https://www.youtube.com/embed/FoMlSB6ftQg"
+                    width="300"
+                    height="560"
+                    title="{{ media.alt }}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary" onclick="history.back()">Back</button>
+    </div>
+</section>
+
+{% endblock %}
