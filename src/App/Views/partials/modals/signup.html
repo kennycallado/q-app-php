@@ -2,38 +2,38 @@
   <div class="modal-dialog">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="signupModalLabel">Sign Up</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="signupModalLabel">Sign Up</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-      <div class="modal-body">
+        <div class="modal-body">
+            <p class="mb-0 text-center">Please fill out the form below to create an account.</p>
+            <hr class="w-50 m-0 mb-2 mx-auto border-2 border-primary">
 
-        <p class="mb-0 text-center">Please fill out the form below to create an account.</p>
-        <hr class="w-50 m-0 mb-2 mx-auto border-2 border-primary">
+                <form id="signup-form" method="POST" action="/signup">
+                <div class="mb-3 text-start">
+                    <label for="signupUsername">Username:</label>
+                    <input type="text" name="username" id="signupUsername" class="form-control" placeholder="Enter username" autocomplete="on" required>
+                </div>
 
-        <form id="signup-form" method="POST" action="/signup">
-          <div class="mb-3 text-start">
-            <label for="username">Username:</label>
-            <!-- <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value=""> -->
-            <input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
-          </div>
+                <div class="mb-3 text-start">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" autocomplete="on" required>
+                </div>
 
-          <div class="mb-3 text-start">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" autocomplete="on">
-          </div>
+                <div class="mb-3 text-start">
+                    <label for="conPassword">Confirm Password:</label>
+                    <input type="password" class="form-control" id="conPassword" placeholder="Confirm password" name="conPassword" required>
+                </div>
 
-          <div class="mb-3 text-start">
-            <label for="conPassword">Confirm Password:</label>
-            <input type="password" class="form-control" id="conPassword" placeholder="Confirm password" name="conPassword" required>
-          </div>
-        </form>
-      </div>
+                <input type="hidden" name="project" value="{{ session.project.id }}">
+            </form>
+        </div>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-info text-light" form="signup-form">Submit</button>
-      </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info text-light" form="signup-form">Submit</button>
+        </div>
 
     </div>
   </div>
