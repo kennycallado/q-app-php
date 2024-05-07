@@ -1,0 +1,26 @@
+{
+  "GET": {
+    "/": {
+      "controller": "Entities\\ScriptsController",
+      "action": "index",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\ScriptsController",
+      "action": "show",
+      "protected": true
+    }
+  },
+  "POST": {
+    "/": {
+      "controller": "Entities\\ScriptsController",
+      "action": "store",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\ScriptsController",
+      "action": "update",
+      "protected": true
+    }
+  }
+}

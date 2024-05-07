@@ -3,6 +3,7 @@
     "/user": "routes/user.json",
     "/admin": "routes/admin.json",
     "/events": "routes/events.json",
+    "/scripts": "routes/scripts.json",
     "/messages": "routes/messages.json"
   },
   "GET": {

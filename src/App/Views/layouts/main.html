@@ -2,13 +2,27 @@
 <html lang="es" data-bs-theme="ligh"> {# Should be a variable #}
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <link rel="stylesheet" href="/public/assets/css/style.css">
-  <link rel="stylesheet" href="/public/assets/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/public/assets/css/style.css">
+    <link rel="stylesheet" href="/public/assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    {% if editor %}
+	<link rel="stylesheet" href="http://esironal.github.io/cmtouch/lib/codemirror.css">
+	<link rel="stylesheet" href="http://esironal.github.io/cmtouch/addon/hint/show-hint.css">
+	<link rel="stylesheet" href="http://esironal.github.io/cmtouch/theme/neonsyntax.css">
+
+	<script src="http://esironal.github.io/cmtouch/lib/codemirror.js"></script>
+    <script src="http://esironal.github.io/cmtouch/mode/javascript/javascript.js"></script>
+
+	<script src="http://esironal.github.io/cmtouch/addon/hint/show-hint.js"></script>
+	<script src="http://esironal.github.io/cmtouch/addon/hint/javascript-hint.js"></script>
+	<script src="http://esironal.github.io/cmtouch/addon/selection/active-line.js"></script>
+	<script src="http://esironal.github.io/cmtouch/addon/edit/matchbrackets.js"></script>
+    {% endif %}
 
   <title>
     {% if title %}

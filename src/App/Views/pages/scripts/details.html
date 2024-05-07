@@ -1,0 +1,72 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<style>
+.CodeMirror {
+    font-size: 1.2em;
+    font-family: 'Courier New', monospace;
+    height: 100%;
+    width: 100%;
+}
+</style>
+
+<header class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2"><u>{{ title }}</u></h1>
+</header>
+
+<section aria-label="Script details">
+    <div class="card">
+        <div class="card-body">
+            <p>id: <span class="">{{ script.id }}</span></p>
+            <p>name: <span class="lead">{{ script.name }}</span></p>
+
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <div id="code"></div>
+
+            <form id="scriptUpdate" action="/scripts/{{ script.id | url_encode }}" method="POST">
+                <input type="hidden" name="id" value="{{ script.id | url_encode }}">
+                <input type="hidden" name="name" value="{{ script.name }}">
+                <input type="hidden" name="code" value="{{ script.code }}">
+
+                <div class="d-flex justify-content-evenly mt-3">
+                    <button type="submit" class="btn btn-primary ms-auto">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <button class="btn btn-primary" onclick="history.back()">Back</button>
+    </div>
+</section>
+
+<script type="text/javascript">
+let editor
+const initial_code = `{{ script.code|e('js') }}`
+const input_code = document.querySelector('input[name="code"]')
+
+CodeMirror.commands.autocomplete = function(cm) {
+    CodeMirror.showHint(cm, CodeMirror.hint.html)
+}
+
+window.onload = function() {
+    editor = CodeMirror(document.getElementById("code"), {
+        mode: "javascript",
+        theme: "neonsyntax",
+        lineWrapping: true,
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+
+        extraKeys: {
+            "Ctrl-Space": "autocomplete"
+        },
+
+        value: "{{ script.code|e('js') }}"
+    })
+
+    editor.on('change', (cm) => {
+        input_code.value = cm.getValue()
+    })
+}
+</script>
+{% endblock %}
