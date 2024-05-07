@@ -47,6 +47,10 @@ class Auth
             'password' => $credentials->password
         ];
 
+        if ($credentials->project) {
+            $query->project = $credentials->project;
+        }
+
         $response = $this->requestProcessor('/signup', json_encode($query), 'global', 'main');
         if (isset($response->error)) {
             // throw new \Exception($response->error);
