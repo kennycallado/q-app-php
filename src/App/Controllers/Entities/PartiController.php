@@ -3,7 +3,6 @@ namespace Src\App\Controllers\Entities;
 
 use Src\App\Models\Repositories\UsersRepository;
 use Src\App\Models\IntervUser;
-use Src\App\Models\User;
 use Src\Core\Render;
 use Src\Utils\Auth;
 use Src\Utils\Surreal;
@@ -31,7 +30,7 @@ class PartiController extends Render
             return;
         }
 
-        return header('Location: /admin/parti/' . $params['id']);
+        return header('Location: /admin/parti/' . urlencode($params['id']));
     }
 
     public function assign_user(Auth $auth, object $body) {

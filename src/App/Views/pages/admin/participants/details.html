@@ -19,7 +19,7 @@
             <i class="bi bi-bell-slash text-warning lead"></i>
             {% endif %}
 
-            <form class="mb-2" method="POST" action="/admin/parti/{{ user.id }}">
+            <form class="mb-2" method="POST" action="/admin/parti/{{ user.id | url_encode }}">
                 <div class="mb-3 text-start">
                     <label for="state" class="form-label">State:</label>
                     <select name="state" class="form-select" aria-label="Multiple select example" required>
@@ -30,7 +30,7 @@
                     </select>
                 </div>
 
-                <input type="hidden" name="id" value="{{ user.id }}" required>
+                <input type="hidden" name="id" value="{{ user.id | url_encode }}" required>
                 <input type="hidden" name="role" value="{{ user.role }}" required>
                 <input type="hidden" name="project" value="{{ user.project }}">
                 <input type="hidden" name="username" value="{{ user.username }}" required>
