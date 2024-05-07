@@ -12,7 +12,9 @@
             <div class="d-flex justify-content-evenly">
                 <button
                     type="button"
-                    class="btn btn-primary mb-2">
+                    class="btn btn-primary mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#signupModal">
                     Create User
                 </button>
 
@@ -54,7 +56,7 @@
                             {{ user.id }}
                         </td>
                         <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.username }}</td>
-                        <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.state ? user.state : "error" }}</td>
+                        <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.state ? user.state : "pending..." }}</td>
                         <td class="ps-2 border-end"><a href="/admin/parti/{{user.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
                     </tr>
                     {% endfor %}
@@ -70,5 +72,6 @@
 </section>
 
 {% include 'pages/admin/participants/partials/index.assign.html' %}
+{% include 'partials/modals/signup.html' %}
 
 {% endblock %}

@@ -38,10 +38,10 @@ class AuthController extends Render
         if (isset($auth->error)) {
             $_SESSION['error'] = json_encode($auth->error);
 
-            return header('Location: /login');
+            return header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
 
-        return header('Location: /login');
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     function signin(object $body)
