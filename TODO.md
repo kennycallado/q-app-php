@@ -1,6 +1,8 @@
 
 ## TODO:
 
+- [ ] media: videos should be the youtube id? or extract it from the url?
+
 - [ ] certs: for https when condespaces
   - [research](https://github.com/BirgerK/docker-apache-letsencrypt)
 - [ ] routes: ?? admin/centers to centers
