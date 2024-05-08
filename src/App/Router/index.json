@@ -5,7 +5,8 @@
     "/media": "routes/media.json",
     "/events": "routes/events.json",
     "/scripts": "routes/scripts.json",
-    "/messages": "routes/messages.json"
+    "/messages": "routes/messages.json",
+    "/resources": "routes/resources.json"
   },
   "GET": {
     "/": {

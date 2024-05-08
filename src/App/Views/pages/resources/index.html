@@ -1,0 +1,52 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<header class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2 text-capitalize"><u>{{ title }}</u></h1>
+</header>
+
+<section aria-label="Resources">
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <button class="btn btn-primary">Create resource</button>
+            </div>
+
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <table class="w-75 mx-auto mb-0 table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th class="ps-2 fs-5" scope="col">id</th>
+                        <th class="fs-5" scope="col">Title</th>
+                        <th class="fs-5" scope="col">Ref</th>
+                        <th class="fs-5" scope="col">Type</th>
+                        <th class="fs-5" scope="col">Edit</th>
+                    </tr>
+                </thead>
+
+            <tbody>
+                {% for item in resources %}
+                    <tr>
+                        <td
+                            class="ps-2 overflow-hidden text-truncate border-start"
+                            style="max-width: 3rem;">
+                            {{ item.id }}
+                        </td>
+                        <td class="ps-2">{{ item.title }}</td>
+                        <td class="ps-2">{{ item.ref }}</td>
+                        <td class="ps-2">{{ item.type }}</td>
+                        <td class="ps-2 border-end"><a href="/resources/{{item.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    {% include 'partials/pagination.html' %}
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

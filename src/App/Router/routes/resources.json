@@ -1,0 +1,26 @@
+{
+  "GET": {
+    "/": {
+      "controller": "Entities\\ResourcesController",
+      "action": "index",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\ResourcesController",
+      "action": "show",
+      "protected": true
+    }
+  },
+  "POST": {
+    "/": {
+      "controller": "Entities\\ResourcesController",
+      "action": "store",
+      "protected": true
+    },
+    "/:id": {
+      "controller": "Entities\\ResourcesController",
+      "action": "update",
+      "protected": true
+    }
+  }
+}

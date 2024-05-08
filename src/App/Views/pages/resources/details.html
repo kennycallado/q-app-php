@@ -1,0 +1,53 @@
+{% extends 'layouts/main.html' %}
+
+{% block body %}
+<header class="w-50 mx-auto mb-1 bg-body-tertiary text-center text-primary rounded">
+    <h1 class="p-2"><u>{{ title }}</u></h1>
+</header>
+
+<section aria-label="Media" id="resource-details">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col">
+                    <p>id: <span class="">{{ resource.id }}</span></p>
+                    <p>title: <span class="lead">{{ resource.title }}</span></p>
+                    <p>ref: <span class="lead">{{ resource.ref }}</span></p>
+                    <p>type: <span class="lead">{{ resource.type }}</span></p>
+                    <p>description: <span class="lead">{{ resource.description }}</span></p>
+                </div>
+
+                <div class="col">
+                    {% include 'pages/resources/partials/details.content.html' %}
+                </div>
+            </div>
+
+            <hr class="m-0 mb-2 border-2 border-primary">
+
+            <!--
+            <form id="resourceUpdate" action="/resources/{{ resource.id | url_encode }}" method="POST">
+
+                <input type="hidden" name="id" value="{{ resource.id | url_encode }}">
+                <input type="hidden" name="title" value="{{ resource.title }}">
+                <input type="hidden" name="ref" value="{{ resource.ref }}">
+                <input type="hidden" name="type" value="{{ resource.type }}">
+                <input type="hidden" name="description" value="{{ resource.description }}">
+
+                <div id="hidden-items">
+                    {% for item in attribute(resource, resource.type) %}
+                    <input type="hidden" name="{{ resource.type }}[]" value="{{ item }}">
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex justify-content-evenly mt-3">
+                    <button type="submit" class="btn btn-primary ms-auto">Save</button>
+                </div>
+            </form>
+            -->
+        </div>
+
+        <button class="btn btn-primary" onclick="history.back()">Back</button>
+    </div>
+</section>
+{% endblock %}
