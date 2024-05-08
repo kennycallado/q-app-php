@@ -1,5 +1,5 @@
 const project_details = document.getElementById('project-details');
-const form = project_details.querySelector('form');
+// const form = project_details.querySelector('form');
 const list = project_details.querySelector('#list');
 const key_add = project_details.querySelector('#key-add');
 const key_input = project_details.querySelector('#key-input');

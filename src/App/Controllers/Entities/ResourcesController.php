@@ -53,7 +53,6 @@ class ResourcesController extends Render
 
         echo $this->view->render('pages/resources/details.html', $prepare);
         return;
-    
     }
 
     public function update(Auth $auth, object $body, array $params)

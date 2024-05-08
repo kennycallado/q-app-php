@@ -47,7 +47,7 @@ class ScriptsController extends Render
 
         $prepare = [
             'title' => 'Details',
-            'editor' => true, // active some resources in the view (css, js)
+            'editor' => true,  // active some resources in the view (css, js)
             'error' => $error ?? null,
             'script' => $script[0]->result[0]
         ];

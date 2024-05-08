@@ -1,6 +1,7 @@
 
 ## TODO:
 
+- [ ] resources: clean comments
 - [ ] media: videos should be the youtube id? or extract it from the url?
 
 - [ ] certs: for https when condespaces
