@@ -64,26 +64,6 @@
 </head>
 
 <body style="padding-top: 5rem">
-    <button
-        hx-trigger="click"
-        hx-get="http://localhost:8000/key/projects"
-        hx-headers='{
-            "Authorization": "Basic cm9vdDpyb290",
-            "Accept": "application/json",
-            "NS": "global",
-            "DB": "main"
-        }'
-        hx-ext="my-ext"
-        hx-target="#projects"
-        hx-swap="none"
-
-        class="btn btn-primary"
-        >
-        Test
-    </button>
-
-    <div id="projects"></div>
-
   <header>
     {% block navbar %}
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary shadow-sm">
