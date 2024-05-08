@@ -24,6 +24,7 @@ class Render
 
         $this->view->addExtension(new IntlExtension());
         $this->view->addGlobal('session', $_SESSION);
+        $this->view->addGlobal('_hx_request', $_SERVER['HTTP_HX_REQUEST'] ?? false);
         $this->view->addGlobal('uri', $_SERVER['REQUEST_URI'] === '/' ? '/' : rtrim($_SERVER['REQUEST_URI'], '/'));
 
         /* Filtro en TWIG que permite convertir objeto en array */

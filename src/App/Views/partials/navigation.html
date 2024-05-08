@@ -1,23 +1,51 @@
-<ul class="navbar-nav pt-2 ms-auto">
-  <li class="nav-item ms-auto me-2">
-    <a
-      class="nav-link {{ 'admin' in uri ? 'active' : '' }}"
-      href="/admin">Admin</a>
-  </li>
+<ul
+    hx-push-url="true"
+    class="navbar-nav pt-2 ms-auto"
+    >
+    <li class="nav-item ms-auto me-2">
+        <a
+            hx-trigger="click"
+            hx-get="/admin"
+            hx-target="#main-container"
 
-  <li class="nav-item ms-auto me-2">
-    <a
-      class="nav-link {{ 'messages' in uri ? 'active' : '' }}"
-      href="/messages">Messages</a>
-  </li>
+            class="nav-link {{ 'admin' in uri ? 'active' : '' }}"
+            href="/admin"
+            >
+            Admin
+        </a>
+    </li>
 
-  <li class="nav-item ms-auto me-2">
-    <a
-      class="nav-link {{ 'user/settings' in uri ? 'active' : '' }}"
-      href="/user/settings">Settings</a>
-  </li>
+    <li class="nav-item ms-auto me-2">
+        <a
+            hx-trigger="click"
+            hx-get="/messages"
+            hx-target="#main-container"
 
-  <li class="nav-item ms-auto me-2">
-    <a class="nav-link" href="/logout">Logout</a>
-  </li>
+            class="nav-link {{ 'messages' in uri ? 'active' : '' }}"
+            href="/messages"
+            >
+            Messages
+        </a>
+    </li>
+
+    <li class="nav-item ms-auto me-2">
+        <a
+            hx-trigger="click"
+            hx-get="/user/settings"
+            hx-target="#main-container"
+
+            class="nav-link {{ 'user/settings' in uri ? 'active' : '' }}"
+            href="/user/settings"
+            >
+            Settings
+        </a>
+    </li>
+
+    <li class="nav-item ms-auto me-2">
+        <a  class="nav-link"
+            href="/logout"
+            >
+            Logout
+        </a>
+    </li>
 </ul>
