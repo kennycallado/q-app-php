@@ -45,7 +45,7 @@ class PartiController extends Render
         return header('Location: /admin/parti');
     }
 
-    public function index(Auth $auth)
+    public function index(Auth $auth, array $params)
     {
         // check if user has been joined the project
         if (!isset($auth->pAuth)) {
@@ -57,6 +57,10 @@ class PartiController extends Render
 
         $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
         unset($_SESSION['error']);
+
+        $limit = $params['limit'] ?? 10;
+        $page = $params['page'] ?? 1;
+        $start = ($page - 1) * $limit;
 
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
         $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
@@ -76,16 +80,19 @@ class PartiController extends Render
             $i_users = $i_users[0]->result;
         }
 
-        $sql = 'SELECT VALUE in FROM join WHERE out IS ' . $auth->project->id . " AND in.role IS 'parti' FETCH in;";
+        $sql = '
+            SELECT count() FROM ONLY join WHERE out IS ' . $auth->project->id . " AND in.role IS 'parti' GROUP BY count LIMIT 1;
+            SELECT VALUE in FROM join WHERE out IS " . $auth->project->id . " AND in.role IS 'parti' LIMIT $limit START $start FETCH in;";
         $users = $g_surreal->rawQuery($sql);
         if (isset($users->code)) {
             echo 'Error: ' . $users->code;
             print_r($users);
 
             return;
-        } else {
-            $users = $users[0]->result;
         }
+
+        $total = $users[0]->result->count;
+        $users = $users[1]->result;
 
         // map $users to add active from i_users
         array_map(function (mixed $user) use ($i_users) {
@@ -101,6 +108,12 @@ class PartiController extends Render
         $prepare = [
             'title' => 'Participants',
             'error' => $error,
+            'pagination' => [
+                'base' => '/admin/parti',
+                'page' => $page,
+                'limit' => $limit,
+                'pages' => ceil($total / $limit)
+            ],
             'users' => $users
         ];
 
