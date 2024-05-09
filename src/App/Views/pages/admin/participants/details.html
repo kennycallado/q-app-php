@@ -21,8 +21,8 @@
 
             <form class="mb-2" method="POST" action="/admin/parti/{{ user.id | url_encode }}">
                 <div class="mb-3 text-start">
-                    <label for="state" class="form-label">State:</label>
-                    <select name="state" class="form-select" aria-label="Multiple select example" required>
+                    <label for="parti-state" class="form-label">State:</label>
+                    <select id="parti-state" name="state" class="form-select" aria-label="Multiple select example" required>
                         <option value="active" {{ user.state == 'active' ? 'selected' : '' }}>Active</option>
                         <option value="exited" {{ user.state == 'exited' ? 'selected' : '' }}>Exited</option>
                         <option value="standby" {{ user.state == 'standby' ? 'selected' : '' }}>Standby</option>
