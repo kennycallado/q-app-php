@@ -7,12 +7,20 @@ use Src\Utils\Surreal;
 
 class ResourcesController extends Render
 {
-    public function index(Auth $auth)
+    public function index(Auth $auth, array $params)
     {
+        // error handling
+
+        $page = $params['page'] ?? 1;
+        $limit = $params['limit'] ?? 10;
+        $start = ($page - 1) * $limit;
+
         $resources = [];
         $i_surreal = new Surreal($auth->project->center, $auth->project->name, $auth->pAuth);
 
-        $sql = 'SELECT * FROM resources;';
+        $sql = "
+            SELECT count() FROM ONLY resources GROUP BY count LIMIT 1;
+            SELECT * FROM resources LIMIT $limit START $start;";
         $resources = $i_surreal->rawQuery($sql);
         if (!is_array($resources)) {
             echo 'Error: ' . $resources->code;
@@ -21,10 +29,19 @@ class ResourcesController extends Render
             return;
         }
 
+        $total = $resources[0]->result->count;
+        $resources = $resources[1]->result;
+
         $prepare = [
             'title' => 'Resources',
             'error' => $error ?? null,
-            'resources' => $resources[0]->result,
+            'pagination' => [
+                'base' => '/resources',
+                'page' => $page,
+                'limit' => $limit,
+                'pages' => ceil($total / $limit)
+            ],
+            'resources' => $resources
         ];
 
         echo $this->view->render('pages/resources/index.html', $prepare);
