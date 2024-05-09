@@ -101,9 +101,12 @@ class Dispatcher
 
     private function dispatch()
     {
-        $method = $this->currentRequest->getMethod();
         $currentRoute = $this->currentRequest->getRoute();
+        $method = $this->currentRequest->getMethod();
         $uri = $this->currentRequest->getUri();
+
+        // Remove the query string from the current route
+        $currentRoute = explode('?', $currentRoute)[0];
 
         if (isset($this->routeList['includes'][$currentRoute])) {
             $jsonFile = $this->routeList['includes'][$currentRoute];
@@ -116,12 +119,12 @@ class Dispatcher
 
         // Parse the URI and query string
         $parsedUrl = parse_url($uri);
-        $uri = urldecode($parsedUrl['path']);
+        $parsedUrl['path'] = $parsedUrl['path'] ?? '/';  // ??
+        $uri = urldecode($parsedUrl['path'] ?? '/');
         $queryString = urldecode($parsedUrl['query'] ?? '');
 
         // Parse the query parameters
         $queryParams = $this->getQueryParams($queryString);
-
         $match = $this->matchRoute($method, $uri, $currentRoute, $queryParams);
 
         if ($match) {
@@ -139,7 +142,7 @@ class Dispatcher
 
         foreach ($this->routeList[$method] as $route => $object) {
             if ($uri === $route) {
-                return ['method' => $method, 'route' => $route];
+                return ['method' => $method, 'route' => $route, 'params' => $queryParams ?? []];
             }
 
             if (!str_contains($route, $currentRoute)) {
@@ -156,6 +159,7 @@ class Dispatcher
 
             $params = [];
             $match = true;
+
             for ($i = 0; $i < $routeArrayCount; $i++) {
                 if (str_contains($routeArray[$i], ':')) {
                     $paramName = substr($routeArray[$i], 1);
