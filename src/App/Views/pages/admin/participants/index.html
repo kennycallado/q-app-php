@@ -57,7 +57,17 @@
                         </td>
                         <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.username }}</td>
                         <td class="ps-2 text-truncate" style="max-width: 10rem">{{ user.state ? user.state : "pending..." }}</td>
-                        <td class="ps-2 border-end"><a href="/admin/parti/{{user.id|url_encode}}"><i class="bi bi-pencil-square"></i></a></td>
+                        <td class="ps-2 border-end">
+                            <a
+                                hx-push-url="true"
+                                hx-trigger="click"
+                                hx-get="/admin/parti/{{user.id|url_encode}}"
+                                hx-target="#main-container"
+
+                                href="/admin/parti/{{user.id|url_encode}}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
