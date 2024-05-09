@@ -1,15 +1,20 @@
 <div class="card">
-
     <div class="card-body">
         <h6 class="card-title mb-0 text-center">Project Authentication</h6>
         <hr class="mt-1 border-2 border-primary">
 
         <form
-            id="join_form"
-            class="mb-2"
+            hx-push="true"
+            hx-trigger="submit"
+            hx-post="/join"
+            hx-target="#main-container"
+
             method="POST"
-            action="/join">
-            
+            action="/join"
+
+            id="join_form"
+            class="mb-2">
+
             <div class="mb-3 text-start">
                 <label for="project-select" class="form-label">Project:</label>
                 <select name="project" class="form-select" aria-label="Multiple select example" id="project-select">
@@ -40,5 +45,4 @@
             Join
         </button>
     </div>
-
 </div>
