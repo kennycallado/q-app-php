@@ -2,19 +2,15 @@
 # see: https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }: {
 
-  nixpkgs.config.allowUnfree = true;
-
   # Which nixpkgs channel to use.
   channel = "stable-23.11"; # or "unstable"
+
+  services.docker.enable = true;
 
   # Use https://search.nixos.org/packages to find packages
   packages = with pkgs; [
     php
     php82Packages.composer
-    podman
-    podman-compose
-    docker
-    docker-compose
   ];
 
   # Sets environment variables in the workspace
@@ -56,7 +52,7 @@
       };
       # Runs when the workspace is (re)started
       onStart = {
-        init-db = "surreal start -A memory";
+        # init-db = "surreal start -A memory";
         # Example: start a background task to watch and re-build backend code
         # watch-backend = "npm run watch-backend";
       };
