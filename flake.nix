@@ -79,11 +79,11 @@
                 fi
 
                 if [ -z $SERVICES_RUNNING ]; then
-                  echo -e "\033[0;31m===\033[0m Warning \033[0;31m===\033[0m"
-                  echo "Services are not running"
-                else
                   echo -e "\033[0;32m===\033[0m Services \033[0;32m===\033[0m"
                   echo "Services are running"
+                else
+                  echo -e "\033[0;31m===\033[0m Warning \033[0;31m===\033[0m"
+                  echo "Services are not running"
                 fi
               fi
               # }}}
