@@ -42,22 +42,28 @@ class Auth
      */
     public function signup($credentials)
     {
-        $query = (object) [
+        $body = (object) [
             'username' => $credentials->username,
             'password' => $credentials->password
         ];
 
         if ($credentials->project) {
-            $query->project = $credentials->project;
+            $body->project = $credentials->project;
         }
 
-        $response = $this->requestProcessor('/signup', json_encode($query), 'global', 'main');
+        $response = $this->requestProcessor('POST', '/signup', json_encode($body));
         if (isset($response->error)) {
             // throw new \Exception($response->error);
             $this->error = $response->error;
 
             return $this;
         }
+
+        // TODO: ?? wait for verification
+        // $this->role = $response->role;
+        // $this->gAuth = $response->g_token;
+        // $this->pAuth = $response->p_token;
+        // $this->user_id = $response->id;
 
         return $this;
     }
@@ -76,12 +82,12 @@ class Auth
      */
     public function signin($credentials)
     {
-        $query = (object) [
+        $body = (object) [
             'username' => $credentials->username,
             'password' => $credentials->password
         ];
 
-        $response = $this->requestProcessor('/login', json_encode($query), 'global', 'main');
+        $response = $this->requestProcessor('POST', '/login', json_encode($body));
         if (isset($response->error)) {
             // throw new \Exception($response->error);
             $this->error = $response->error;
@@ -89,68 +95,52 @@ class Auth
             return $this;
         }
 
-        if (isset($response->project)) {
-            $this->project = $response->project;
-        }
+        if (isset($response->project)) { $this->project = $response->project; }
+        if (isset($response->p_token)) { $this->pAuth = $response->p_token; }
+        if (isset($response->role))    { $this->role = $response->role; }
 
+        $this->gAuth = $response->g_token;
         $this->user_id = $response->id;
-        $this->role = $response->role;
-        $this->gAuth = $response->token;
 
         return $this;
     }
 
-    /**
-     * join
-     * Join a user into a project
-     *
-     * @param string $pass // example: '01HJTEBG4Y1EAXPATENCDCT7WW'
-     * @param ?string $ns
-     * @param ?string $db
-     *
-     * @return $this
-     */
-    public function join($pass, $ns = null, $db = null)
+    // TODO: probably error mean no longer authenticable
+    public function refresh()
     {
-        $query = (object) [
-            'ns' => $ns ? $ns : $this->project->center,
-            'db' => $db ? $db : $this->project->name,
-            'pass' => $pass
-        ];
-
-        // request and manage errors
-        $response = $this->requestProcessor('/join', json_encode($query), $query->ns, $query->db, "Bearer $this->gAuth");
+        $response = $this->requestProcessor('GET', '/refresh', null, $this->gAuth);
         if (isset($response->error)) {
             // throw new \Exception($response->error);
             $this->error = $response->error;
+
             return $this;
         }
 
-        $this->pAuth = $response->token;
+        // reset all values
+        $this->project  = null;
+        $this->user_id  = '';
+        $this->gAuth    = '';
+        $this->pAuth    = null;
+        $this->role     = '';
+
+        if (isset($response->project)) { $this->project = $response->project; }
+        if (isset($response->p_token)) { $this->pAuth = $response->p_token; }
+        if (isset($response->role))    { $this->role = $response->role; }
+
+        $this->gAuth = $response->g_token;
+        $this->user_id = $response->id;
 
         return $this;
     }
 
-    /**
-     * signout
-     * Sign out a user
-     *
-     * @return $this
-     */
-    public function signout() {}
-
-    /**
-     * refresh
-     * Refresh a JWT
-     *
-     * @param string $JWT
-     * @param string $ns (default: 'global')
-     * @param string $db (default: 'main')
-     */
-    public function refresh() {}
-
-    private function requestProcessor($path, $query, $ns = 'global', $db = 'main', $auth = '')
-    {
+    private function requestProcessor(
+        string $method,
+        string $path,
+        ?string $body,
+        string $auth = '',
+        $ns = 'global',
+        $db = 'main'
+    ) {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -161,8 +151,8 @@ class Auth
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => $query,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_POSTFIELDS => $body,
             CURLOPT_HTTPHEADER => [
                 'Accept: application/json',
                 'Authorization: ' . $auth,
