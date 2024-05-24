@@ -19,6 +19,7 @@
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       "bmewburn.vscode-intelephense-client"
+      "ms-azuretools.vscode-docker"
       "arrterian.nix-env-selector"
       "surrealdb.surrealql"
       "jnoortheen.nix-ide"
