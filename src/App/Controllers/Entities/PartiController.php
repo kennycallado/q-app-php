@@ -80,9 +80,9 @@ class PartiController extends Render
             $i_users = $i_users[0]->result;
         }
 
-        $sql = '
-            SELECT count() FROM ONLY join WHERE out IS ' . $auth->project->id . " AND in.role IS 'parti' GROUP BY count LIMIT 1;
-            SELECT VALUE in FROM join WHERE out IS " . $auth->project->id . " AND in.role IS 'parti' LIMIT $limit START $start FETCH in;";
+        $sql  = "SELECT count()  FROM join WHERE out IS " . $auth->project->id . " AND (SELECT ->roled.role FROM in IS 'parti') GROUP BY count;";
+        $sql .= "SELECT * FROM (SELECT VALUE <-join<-users->roled[WHERE role IS 'parti'].in FROM ONLY ". $auth->project->id .") LIMIT $limit START $start;";
+
         $users = $g_surreal->rawQuery($sql);
         if (isset($users->code)) {
             echo 'Error: ' . $users->code;
@@ -91,7 +91,7 @@ class PartiController extends Render
             return;
         }
 
-        $total = $users[0]->result->count;
+        $total = $users[0]->result[0]->count;
         $users = $users[1]->result;
 
         // map $users to add active from i_users
