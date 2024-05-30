@@ -47,6 +47,13 @@ function handle_statics($temp_uri)
 
         readfile(__DIR__ . '/../vendor/twbs/bootstrap/' . $temp_path);
         return;
+    } else if (preg_match('/^\/public\/assets\/@microsoft\/(.+)$/', $temp_uri)) {
+        $temp_path = str_replace('/public/assets/@microsoft/', '', $temp_uri);
+
+        set_headers($temp_uri);
+
+        readfile(__DIR__ . '/../node_modules/@microsoft/' . $temp_path);
+        return;
     } else {
         set_headers($temp_uri);
 

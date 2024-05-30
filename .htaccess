@@ -2,6 +2,7 @@ RewriteEngine On
 
 # redirecciona assets hacia public
 RewriteRule ^public/assets/bootstrap/(.+)$ vendor/twbs/bootstrap/$1 [QSA,L]
+RewriteRule ^public/assets/@microsoft/(.+)$ ./node_modules/@microsoft/$1 [QSA,L]
 
 # Todo el resto lo redirecciona hacia el punto de entrada
 DirectoryIndex public/index.php 

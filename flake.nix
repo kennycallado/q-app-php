@@ -95,6 +95,13 @@
               fi
               # }}}
 
+              # {{{ install npm dependencies
+              if [ -f package.json ]; then
+                echo -e "\033[0;33m===\033[0m Installing npm dependencies \033[0;33m===\033[0m"
+                npm install
+              fi
+              # }}}
+
               # {{{ welcome message
               echo -e "\033[0;32m===\033[0m Welcome \033[0;32m===\033[0m"
               echo "ready to rock! 🚀"

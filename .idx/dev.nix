@@ -48,7 +48,7 @@
       # Runs when a workspace is first created
       onCreate = {
         composer-install ="composer install";
-        # npm-install = "npm install";
+        npm-install = "npm install";
       };
       # Runs when the workspace is (re)started
       onStart = {
