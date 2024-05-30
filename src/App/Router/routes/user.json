@@ -5,5 +5,12 @@
       "action": "settings",
       "protected": true
     }
+  },
+  "POST": {
+    "/:id": {
+      "controller": "Entities\\UsersController",
+      "action": "update",
+      "protected": true
+    }
   }
 }
