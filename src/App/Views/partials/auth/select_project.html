@@ -4,13 +4,18 @@
         <hr class="mt-1 border-2 border-primary">
 
         <form
+            {% if session.user_id is defined %}
             hx-push="true"
             hx-trigger="submit"
-            hx-post="/join"
+            hx-post="/user/{{ session.user_id|url_encode }}"
             hx-target="#main-container"
 
             method="POST"
-            action="/join"
+            action="/user/{{ session.user_id|url_encode }}"
+            {% else %}
+            method="GET"
+            action="/select"
+            {% endif %}
 
             id="join_form"
             class="mb-2">
@@ -26,11 +31,6 @@
                     </optgroup>
                     {% endfor %}
                 </select>
-            </div>
-
-            <div class="mb-3 text-start">
-                <label for="project-pass" class="form-label">Pass:</label>
-                <input name="pass" type="password" class="form-control" placeholder="Enter pass" id="project-pass">
             </div>
 
         </form>

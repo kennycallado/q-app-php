@@ -11,6 +11,8 @@
 
             <h2 class="card-title text-center text-capitalize">{{ current.project ? current.project : 'no project' }}</h2>
 
+            {# TODO: unreachable #}
+            <!-- unreachable -->
             {% if joined %}
             <h5 class="mt-3">Project Stats:</h5>
             <hr class="mt-1 border-2 border-primary">
@@ -53,7 +55,7 @@
                 </div>
 
                 <div class="col">
-                    {% include 'partials/auth/join.html' %}
+                    {% include 'partials/auth/select_project.html' %}
                 </div>
             </div>
 

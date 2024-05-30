@@ -1,0 +1,28 @@
+{% extends 'layouts/login.html' %}
+
+{% block main %}
+<section class="d-flex justify-content-center align-items-center pt-5" aria-lable="Sign in form">
+  <div class="card my-2 p-4 pb-2 text-center shadow-lg" style="width: 40%;">
+  <!-- <div class="card d-flex justify-content-center align-items-center" style="width: 40%;"> -->
+
+    <h1 class="border-start border-5 border-primary text-start ms-3 ps-1" >iPsitec</h1>
+    <div>
+      <h2 class="fs-5 fw-bold text-uppercase">Sign in</h2>
+    </div>
+
+    <hr class="m-0 mb-2 border-2 border-primary" />
+
+    {% if error %}
+      <div class="alert alert-danger" role="alert">
+        <span class="lead">Error:<span>
+        <br>
+        <small>{{ error }}</small>
+      </div>
+    {% endif %}
+
+    {% include 'partials/auth/select_project.html' %}
+
+    <button class="btn btn-primary mt-3" onclick="history.back()">Back</button>
+  </div>
+</section>
+{% endblock %}

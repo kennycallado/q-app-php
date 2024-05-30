@@ -1,9 +1,5 @@
 {% extends 'layouts/login.html' %}
 
-{% block modal_body %}
-  <h1>hola</h1>
-{% endblock %}
-
 {% block main %}
 <section class="d-flex justify-content-center align-items-center pt-5" aria-lable="Sign in form">
   <div class="card my-2 p-4 pb-2 text-center shadow-lg">
@@ -15,7 +11,7 @@
       <p class="mb-2">Enter your credentials to access your account</p>
     </div>
 
-    <hr class="m-0 mb-2 border-2 border-primary">
+    <hr class="m-0 mb-2 border-2 border-primary" />
 
     {% if error %}
     <div class="alert alert-danger" role="alert">
