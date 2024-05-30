@@ -80,8 +80,8 @@ class PartiController extends Render
             $i_users = $i_users[0]->result;
         }
 
-        $sql  = "SELECT count()  FROM join WHERE out IS " . $auth->project->id . " AND (SELECT ->roled.role FROM in IS 'parti') GROUP BY count;";
-        $sql .= "SELECT * FROM (SELECT VALUE <-join<-users->roled[WHERE role IS 'parti'].in FROM ONLY ". $auth->project->id .") LIMIT $limit START $start;";
+        $sql = 'SELECT count()  FROM join WHERE out IS ' . $auth->project->id . " AND (SELECT ->roled.role FROM in IS 'parti') GROUP BY count;";
+        $sql .= "SELECT * FROM (SELECT VALUE <-join<-users->roled[WHERE role IS 'parti'].in FROM ONLY " . $auth->project->id . ") LIMIT $limit START $start;";
 
         $users = $g_surreal->rawQuery($sql);
         if (isset($users->code)) {

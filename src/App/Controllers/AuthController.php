@@ -46,7 +46,9 @@ class AuthController extends Render
         $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
         unset($_SESSION['error']);
 
-        if (!$pre_auth) { return header('Location: /login'); }
+        if (!$pre_auth) {
+            return header('Location: /login');
+        }
 
         if (isset($params['project'])) {
             // update user project
@@ -64,7 +66,7 @@ class AuthController extends Render
             }
 
             // not joinable
-            if ($response[0]->status == "ERR") {
+            if ($response[0]->status == 'ERR') {
                 $error = (object) ['code' => '400', 'details' => 'You are not allowed to join this project'];
                 $_SESSION['error'] = json_encode($error);
 
@@ -179,7 +181,8 @@ class AuthController extends Render
         return header('Location: /');
     }
 
-    static function refresh(Auth $auth) {
+    static function refresh(Auth $auth)
+    {
         $auth = $auth->refresh();
 
         if (!$auth->role || $auth->error) {

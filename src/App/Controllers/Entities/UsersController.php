@@ -8,7 +8,8 @@ use Src\Utils\Surreal;
 
 class UsersController extends Render
 {
-    public function update(Auth $auth, object $body, array $params) {
+    public function update(Auth $auth, object $body, array $params)
+    {
         $g_surreal = new Surreal('global', 'main', $auth->gAuth);
 
         $user = json_encode($body);

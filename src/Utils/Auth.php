@@ -95,9 +95,15 @@ class Auth
             return $this;
         }
 
-        if (isset($response->project)) { $this->project = $response->project; }
-        if (isset($response->p_token)) { $this->pAuth = $response->p_token; }
-        if (isset($response->role))    { $this->role = $response->role; }
+        if (isset($response->project)) {
+            $this->project = $response->project;
+        }
+        if (isset($response->p_token)) {
+            $this->pAuth = $response->p_token;
+        }
+        if (isset($response->role)) {
+            $this->role = $response->role;
+        }
 
         $this->gAuth = $response->g_token;
         $this->user_id = $response->id;
@@ -122,15 +128,21 @@ class Auth
         }
 
         // reset all values
-        $this->project  = null;
-        $this->user_id  = '';
-        $this->gAuth    = '';
-        $this->pAuth    = null;
-        $this->role     = '';
+        $this->project = null;
+        $this->user_id = '';
+        $this->gAuth = '';
+        $this->pAuth = null;
+        $this->role = '';
 
-        if (isset($response->project)) { $this->project = $response->project; }
-        if (isset($response->p_token)) { $this->pAuth = $response->p_token; }
-        if (isset($response->role))    { $this->role = $response->role; }
+        if (isset($response->project)) {
+            $this->project = $response->project;
+        }
+        if (isset($response->p_token)) {
+            $this->pAuth = $response->p_token;
+        }
+        if (isset($response->role)) {
+            $this->role = $response->role;
+        }
 
         $this->gAuth = $response->g_token;
         $this->user_id = $response->id;

@@ -34,19 +34,19 @@ class Dispatcher
             $this->is_protected = true;
 
             if (
-                   isset($_COOKIE['gAuth'])
-                || isset($_COOKIE['user_id'])
-                || isset($_COOKIE['project'])
-                || isset($_COOKIE['pAuth'])
-                || isset($_COOKIE['role'])
+                isset($_COOKIE['gAuth']) ||
+                isset($_COOKIE['user_id']) ||
+                isset($_COOKIE['project']) ||
+                isset($_COOKIE['pAuth']) ||
+                isset($_COOKIE['role'])
             ) {
                 $auth = new Auth($_ENV['AUTH_URL']);
 
-                $auth->project  = json_decode($_COOKIE['project']);
-                $auth->user_id  = $_COOKIE['user_id'];
-                $auth->gAuth    = $_COOKIE['gAuth'];
-                $auth->pAuth    = $_COOKIE['pAuth'];
-                $auth->role     = $_COOKIE['role'];
+                $auth->project = json_decode($_COOKIE['project']);
+                $auth->user_id = $_COOKIE['user_id'];
+                $auth->gAuth = $_COOKIE['gAuth'];
+                $auth->pAuth = $_COOKIE['pAuth'];
+                $auth->role = $_COOKIE['role'];
             } else {
                 header('Location: /login');
 
