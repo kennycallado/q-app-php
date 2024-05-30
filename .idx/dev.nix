@@ -48,12 +48,11 @@
       # Runs when a workspace is first created
       onCreate = {
         composer-install ="composer install";
-        # Example: install JS dependencies from NPM
         # npm-install = "npm install";
       };
       # Runs when the workspace is (re)started
       onStart = {
-        # init-db = "surreal start -A memory";
+        # init-services = "docker compose up -d";
         # Example: start a background task to watch and re-build backend code
         # watch-backend = "npm run watch-backend";
       };

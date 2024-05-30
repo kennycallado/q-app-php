@@ -35,6 +35,7 @@ class AdminController extends Render
 
         $num_rows = count($multi);
 
+        # TODO: ? unreachable
         if (!isset($auth->pAuth)) {
             $centers = $multi[0]->result ?? [];
         } else {

@@ -105,7 +105,12 @@ class Auth
         return $this;
     }
 
-    // TODO: probably error mean no longer authenticable
+    /**
+     * refresh
+     * Refresh the token
+     *
+     * @return Auth
+     */
     public function refresh()
     {
         $response = $this->requestProcessor('GET', '/refresh', null, $this->gAuth);
