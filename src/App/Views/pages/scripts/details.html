@@ -40,33 +40,35 @@
 </section>
 
 <script type="text/javascript">
-let editor
-const initial_code = `{{ script.code|e('js') }}`
-const input_code = document.querySelector('input[name="code"]')
+document.addEventListener('DOMContentLoaded', () => {
+    let editor
+    const initial_code = `{{ script.code|e('js') }}`
+    const input_code = document.querySelector('input[name="code"]')
 
-CodeMirror.commands.autocomplete = function(cm) {
-    CodeMirror.showHint(cm, CodeMirror.hint.html)
-}
+    CodeMirror.commands.autocomplete = function(cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.html)
+    }
 
-window.onload = function() {
-    editor = CodeMirror(document.getElementById("code"), {
-        mode: "javascript",
-        theme: "neonsyntax",
-        lineWrapping: true,
-        lineNumbers: true,
-        styleActiveLine: true,
-        matchBrackets: true,
+    window.onload = function() {
+        editor = CodeMirror(document.getElementById("code"), {
+            mode: "javascript",
+            theme: "neonsyntax",
+            lineWrapping: true,
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
 
-        extraKeys: {
-            "Ctrl-Space": "autocomplete"
-        },
+            extraKeys: {
+                "Ctrl-Space": "autocomplete"
+            },
 
-        value: "{{ script.code|e('js') }}"
-    })
+            value: "{{ script.code|e('js') }}"
+        })
 
-    editor.on('change', (cm) => {
-        input_code.value = cm.getValue()
-    })
-}
+        editor.on('change', (cm) => {
+            input_code.value = cm.getValue()
+        })
+    }
+})
 </script>
 {% endblock %}
