@@ -3,8 +3,10 @@
 * Copyright 2011-2024 The Bootstrap Authors
 * Licensed under the Creative Commons Attribution 3.0 Unported License.
 */
-(() => {
+(async () => {
     'use strict'
+
+    const { baseLayerLuminance, StandardLuminance } = await import('/public/assets/@microsoft/fast-components/dist/fast-components.min.js')
 
     const getStoredTheme = () => localStorage.getItem('theme')
     const setStoredTheme = theme => localStorage.setItem('theme', theme)
@@ -20,9 +22,12 @@
 
     const setTheme = theme => {
         if (theme === 'auto') {
-            document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
+            let preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-bs-theme', (preferredTheme))
+            baseLayerLuminance.withDefault(preferredTheme === 'dark' ? StandardLuminance.DarkMode : StandardLuminance.LightMode)
         } else {
             document.documentElement.setAttribute('data-bs-theme', theme)
+            baseLayerLuminance.withDefault(theme === 'dark' ? StandardLuminance.DarkMode : StandardLuminance.LightMode)
         }
     }
 
