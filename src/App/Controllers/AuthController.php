@@ -7,12 +7,96 @@ use Src\Utils\Surreal;
 
 class AuthController extends Render
 {
+    private function setCookies(Auth $auth)
+    {
+        if (isset($auth->project)) {
+            setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');
+            $_SESSION['project'] = $auth->project;
+        }
+
+        if (isset($auth->pAuth)) {
+            setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');
+        }
+
+        setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');
+        setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');
+        setcookie('role', $auth->role, time() + (86400 * 30), '/');
+
+        $_SESSION['role'] = $auth->role;
+        $_SESSION['user_id'] = $auth->user_id;
+    }
+
     function login()
     {
         $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
         unset($_SESSION['error']);
 
-        echo $this->view->render('pages/auth/login.html', ['title' => 'Login', 'error' => $error]);
+        $prepare = [
+            'title' => 'Login',
+            'error' => $error
+        ];
+
+        echo $this->view->render('pages/auth/login.html', $prepare);
+        return;
+    }
+
+    function select(array $params)
+    {
+        $pre_auth = isset($_SESSION['pre_auth']) ? $_SESSION['pre_auth'] : null;
+        $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
+        unset($_SESSION['error']);
+
+        if (!$pre_auth) { return header('Location: /login'); }
+
+        if (isset($params['project'])) {
+            // update user project
+            $surreal = new Surreal('global', 'main', $pre_auth->gAuth);
+
+            $sql = "UPDATE $pre_auth->user_id SET project = $params[project];";
+
+            $response = $surreal->rawQuery($sql);
+            if (isset($response->code)) {
+                echo '<pre>';
+                print_r($response);
+                echo '</pre>';
+
+                return;
+            }
+
+            // not joinable
+            if ($response[0]->status == "ERR") {
+                $error = (object) ['code' => '400', 'details' => 'You are not allowed to join this project'];
+                $_SESSION['error'] = json_encode($error);
+
+                return header('Location: /select');
+            }
+
+            $auth = new Auth($_ENV['AUTH_URL']);
+            $auth = $pre_auth;
+
+            $this::refresh($auth);
+        }
+
+        $surreal = new Surreal('global', 'main', $pre_auth->gAuth);
+
+        $sql = 'SELECT *, (SELECT id, name FROM projects WHERE center = $parent.id) AS projects FROM centers;';
+        $response = $surreal->rawQuery($sql);
+        if (isset($response->code)) {
+            echo 'Error: ' . $response->code;
+            print_r($response);
+
+            return;
+        }
+
+        $centers = $response[0]->result;
+
+        $prepare = [
+            'title' => 'Project selection',
+            'centers' => $centers,
+            'error' => $error
+        ];
+
+        echo $this->view->render('pages/auth/select.html', $prepare);
         return;
     }
 
@@ -61,6 +145,12 @@ class AuthController extends Render
             return header('Location: /login');
         }
 
+        if (!isset($auth->role)) {
+            $_SESSION['pre_auth'] = $auth;
+
+            return header('Location: /select');
+        }
+
         // check if user is a parti or guest
         if (in_array($auth->role, ['parti', 'guest'])) {
             $error = (object) ['code' => '400', 'datils' => "You don't have permission to access this site"];
@@ -75,74 +165,59 @@ class AuthController extends Render
             $_SESSION['project'] = $auth->project;
         }
 
+        if (isset($auth->pAuth)) {
+            setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');  // valid for 30 days
+        }
+
         setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');  // valid for 30 days
         setcookie('role', $auth->role, time() + (86400 * 30), '/');  // valid for 30 days
 
         $_SESSION['role'] = $auth->role;
+        $_SESSION['user_id'] = $auth->user_id;
 
         return header('Location: /');
     }
 
-    function join(Auth $auth, object $body)
-    {
-        if (empty($body->project) || empty($body->pass)) {
-            $error = (object) ['code' => '400', 'datils' => 'There are missing fields'];
-            $_SESSION['error'] = json_encode($error);
+    static function refresh(Auth $auth) {
+        $auth = $auth->refresh();
 
-            return header('Location: /user/settings');
+        if (!$auth->role || $auth->error) {
+            if ($auth->error) {
+                $_SESSION['error'] = json_encode($auth->error);
+            } else {
+                $error = (object) ['code' => '400', 'datils' => "You don't have permission to access this project"];
+
+                $_SESSION['error'] = json_encode($error);
+            }
+
+            return header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
 
-        // check if is trying to join as guest
-        if ($body->pass === 'guest') {
-            $error = (object) ['code' => '400', 'datils' => 'Is not possible to join as guest'];
-            $_SESSION['error'] = json_encode($error);
+        if (isset($auth->project)) {
+            setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
 
-            return header('Location: /user/settings');
+            $_SESSION['project'] = $auth->project;
         }
 
-        $g_surreal = new Surreal('global', 'main', $auth->gAuth);
-
-        $sql = "
-            IF $body->project IN (SELECT VALUE out FROM join WHERE in IS $auth->user_id) {
-                UPDATE $auth->user_id SET project = $body->project;
-                RETURN SELECT id, name, center.name FROM ONLY $body->project LIMIT 1;
-            };";
-
-        $result = $g_surreal->rawQuery($sql);
-        if (isset($result->code)) {
-            $_SESSION['error'] = json_encode($result);
-
-            return header('Location: /user/settings');
+        if (isset($auth->pAuth)) {
+            setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');  // valid for 30 days
         }
 
-        $project = $result[0]->result;
-        if (empty($project)) {
-            $error = (object) ['code' => '400', 'details' => 'You are not allowed to join this project'];
-            $_SESSION['error'] = json_encode($error);
+        setcookie('user_id', $auth->user_id, time() + (86400 * 30), '/');  // valid for 30 days
+        setcookie('gAuth', $auth->gAuth, time() + (86400 * 30), '/');  // valid for 30 days
+        setcookie('role', $auth->role, time() + (86400 * 30), '/');  // valid for 30 days
 
-            return header('Location: /user/settings');
+        $_SESSION['user_id'] = $auth->user_id;
+        $_SESSION['role'] = $auth->role;
+
+        if ($_SERVER['REDIRECT_URL'] == '/select') {
+            unset($_SESSION['pre_auth']);
+
+            return header('Location: /');
         }
 
-        $auth = $auth->join($body->pass, $project->center->name, $project->name);
-        if (isset($auth->error)) {
-            $_SESSION['error'] = json_encode($auth->error);
-
-            return header('Location: /user/settings');
-        }
-
-        // update cookies and session
-        $auth->project = (object) [];
-        $auth->project->id = $project->id;
-        $auth->project->name = $project->name;
-        $auth->project->center = $project->center->name;
-
-        setcookie('project', json_encode($auth->project), time() + (86400 * 30), '/');  // valid for 30 days
-        setcookie('pAuth', $auth->pAuth, time() + (86400 * 30), '/');  // valid for 30 days
-
-        $_SESSION['project'] = $auth->project;
-
-        return header('Location: /admin');
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     function logout()
