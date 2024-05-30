@@ -20,8 +20,8 @@ class AdminController extends Render
         }
 
         if (isset($auth->project)) {
-            $sql .= 'SELECT count() AS p_u_count FROM join WHERE out IS ' . $auth->project->id . " AND in.role IS 'parti' GROUP BY p_u_count;";
-            $sql .= "SELECT count() AS c_u_count FROM join WHERE out IN (SELECT VALUE id FROM projects WHERE center.name IS '" . $auth->project->center . "') AND in.role IS 'parti' GROUP BY c_u_count;";
+            $sql .= "SELECT count() AS p_u_count FROM join WHERE out IS " . $auth->project->id . " AND (SELECT ->roled.role FROM in IS 'parti') GROUP BY p_u_count;";
+            $sql .= "SELECT count(->belongs->centers<-roled<-users) AS c_u_count FROM ". $auth->project->id .";";
             $sql .= "SELECT count() AS c_p_count FROM projects WHERE center.name = '" . $auth->project->center . "' GROUP BY c_p_count;";
         }
 
