@@ -14,9 +14,14 @@
             <p class="mb-0 fw-bold">Project: <span class="ms-2 text-primary">{{ session.project.name }}</span></p>
         </div>
 
-        <div class="border-top list-group list-group-flush mb-3">
-            <!-- class="list-group-item list-group-item-action {{ 'admin/' in uri ? '' : 'active' }}" -->
+        <div
+            hx-push-url="true"
+            class="border-top list-group list-group-flush mb-3">
             <a
+                hx-trigger="click"
+                hx-get="/admin"
+                hx-target="#main-container"
+
                 href="/admin"
                 type="button"
                 class="list-group-item list-group-item-action {{ '/admin' == uri ? 'bg-primary bg-opacity-25' : '' }}"
@@ -27,6 +32,10 @@
 
             {% if session.project is defined %}
             <a
+                hx-trigger="click"
+                hx-get="/admin/parti"
+                hx-target="#main-container"
+
                 href="/admin/parti"
                 type="button"
                 class="list-group-item list-group-item-action {{ 'admin/parti' in uri ? 'bg-primary bg-opacity-25' : '' }}"
@@ -56,6 +65,10 @@
                         <div class="accordion-body ms-3 py-0">
                             <div class="list-group list-group-flush">
                                 <a
+                                    hx-trigger="click"
+                                    hx-get="/media"
+                                    hx-target="#main-container"
+
                                     href="/media"
                                     type="button"
                                     class="list-group-item list-group-item-action"
@@ -83,6 +96,10 @@
                                 </a>
 
                                 <a
+                                    hx-trigger="click"
+                                    hx-get="/resources"
+                                    hx-target="#main-container"
+
                                     href="/resources"
                                     type="button"
                                     class="list-group-item list-group-item-action"
@@ -92,6 +109,10 @@
                                 </a>
 
                                 <a
+                                    hx-trigger="click"
+                                    hx-get="/scripts"
+                                    hx-target="#main-container"
+
                                     href="/scripts"
                                     type="button"
                                     class="list-group-item list-group-item-action"
@@ -101,6 +122,10 @@
                                 </a>
 
                                 <a
+                                    hx-trigger="click"
+                                    hx-get="/events"
+                                    hx-target="#main-container"
+
                                     href="/events"
                                     type="button"
                                     class="list-group-item list-group-item-action"
