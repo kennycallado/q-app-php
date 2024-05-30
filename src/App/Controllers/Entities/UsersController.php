@@ -1,12 +1,31 @@
 <?php
 namespace Src\App\Controllers\Entities;
 
+use Src\App\Controllers\AuthController;
 use Src\Core\Render;
 use Src\Utils\Auth;
 use Src\Utils\Surreal;
 
 class UsersController extends Render
 {
+    public function update(Auth $auth, object $body, array $params) {
+        $g_surreal = new Surreal('global', 'main', $auth->gAuth);
+
+        $user = json_encode($body);
+
+        $sql = "UPDATE $params[id] MERGE $user;";
+
+        $response = $g_surreal->rawQuery($sql);
+        if (isset($response->code)) {
+            echo 'Error: ' . $response->code;
+            print_r($response);
+
+            return;
+        }
+
+        AuthController::refresh($auth);
+    }
+
     public function settings(Auth $auth)
     {
         $error = isset($_SESSION['error']) ? $_SESSION['error'] : null;
